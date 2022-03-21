@@ -18,3 +18,13 @@ TODO    (GOOD TO END 1+2 BY FIRST HALF OF MAY)
       We can put server with DB, local clients may sending request by TCP to serwer for queries, client will wait for server massage and parse to nice gui interview.  
       
       We should start work at first half of april, after learn some more advanced thinks at PB/PR3 (good to know JDBC, JAVAFX)
+
+
+
+NEED TO IMPLEMENT 
+    JAVA:
+        Classes for nonLoggedUser (login/register to system, register visit (should add necessary data ) ),
+            loggedUser (checking his prescriptions, showing list of his active visits) , 
+            Doctor (write prescription; list today patients; changing visits data; assigning office for some time; can receive sorted data from DB about patients or smth WE SHOULD THING ABOUT THAT  )
+              Doctor Office ( list non avalible dates, TODO)
+              
