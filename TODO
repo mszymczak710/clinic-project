@@ -1,0 +1,30 @@
+TODO    (GOOD TO END 1+2 BY FIRST HALF OF MAY)   
+
+    1  Main Program functionalities:
+      -   Login/rejestration to system Module - extra content for logged user -
+      -   Normal user can register visit(By a "card from calendar" which can be show non avalible terms), check his prescriptions (maybe print as .pdf or directly to default printer ),
+      -  Doctor account can write a prescriptions, change some medical data, time of visits, checks list of patients
+      -   A doctor may be assigned to an office (for the period from-to). After the date is exceeded, the office is automatically released.
+      -   Make a simple, transparent GUI
+      -   The shown lists with the indicated data should be nicely displayed, with the possibility of sorting, scrolling
+      -
+  2 Database features
+      - We need to implement basic operation on DB (Select, Insert, Delete ), implement a little more complicated things like triggers, procedures.
+          It should be our showcase to DB project, so lets implement some diffrent, not obvious (but with logical use ) things. 
+      - We should implement in our GUI some kind of list with patients, offices, stuff, which we can sort to be good to view. (extra "points" at DB project)
+      - ALL FEATURES NEED TO BE WELL THOUGHT AND FUNCTIONAL 
+      -
+ 3 Network programing elements : TODO sockets or REST API
+      We can put server with DB, local clients may sending request by TCP to serwer for queries, client will wait for server massage and parse to nice gui interview.  
+      
+      We should start work at first half of april, after learn some more advanced thinks at PB/PR3 (good to know JDBC, JAVAFX)
+
+
+
+NEED TO IMPLEMENT 
+    JAVA:
+        Classes for nonLoggedUser (login/register to system, register visit (should add necessary data ) ),
+            loggedUser (checking his prescriptions, showing list of his active visits) , 
+            Doctor (write prescription; list today patients; changing visits data; assigning office for some time; can receive sorted data from DB about patients or smth WE SHOULD THING ABOUT THAT  )
+              Doctor Office ( list non avalible dates, TODO)
+              
