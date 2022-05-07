@@ -16,4 +16,5 @@ Główne funkcjonalności programu:
 - Pacjent ma możliwość wyeksportowania swojej recepty do formatu np. pdf, html. 
 
 Język programowania użyty do pracy w projekcie: Java.
+
 System Zarządzania Bazą Danych: PostgreSQL.
