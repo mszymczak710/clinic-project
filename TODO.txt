@@ -28,3 +28,6 @@ NEED TO IMPLEMENT
             Doctor (write prescription; list today patients; changing visits data; assigning office for some time; can receive sorted data from DB about patients or smth WE SHOULD THING ABOUT THAT  )
               Doctor Office ( list non avalible dates, TODO)
               
+GŁOWNY PODZIAL ZADAN NA DZISIAJ: BAZA DANYCH, KOMUNIKACJA BD Z SERWEREM (MATEUSZ),
+ KOMUNIKACJA SERWERA Z KLIENTEM, SIECIÓWKA (WITEK)
+ GUI (JAKUB)
