@@ -1,20 +1,20 @@
 # Przychodnia---Projekt-Java
 Projekt zaliczeniowy z przedmiotu Programowanie III (Java, C#)
 
-LISTA OSÓB BIORĄCYCH UDZIAŁ W PROJEKCIE:
+Projekt zaliczeniowy nosi nazwę "System zarządzania przychodnią lekarską".
 
-Jakub Skoczylas (308205)
-Mateusz Szymczak (308216)
-Witold Weiner (308220)
+Skład tworzący: Jakub Skoczylas (308205), Mateusz Szymczak (308216), Witold Weiner (308220).
 
-TEMAT PROJEKTU:
+Główne funkcjonalności programu:
+- możliwość przeglądania dane dot. wizyty lekarskiej oraz recept przez pacjenta.
+- możliwość zarządzania wizytami przez lekarza.
+- Dodawanie wizyt, tworzenie recepty, rejestrowanie nowych pacjentów przez lekarza. 
+- Dyrektor przychodni ma możliwości te same co lekarz, ale dodatkowo ma możliwość zwalniania i zatrudniania lekarzy. 
+- Przypisany do wizyty gabinet nie będzie dostępny na czas trwania wizyty.
+- Lekarz i gabinet na czas trwania wizyty nie będą dostępne do przypisania do innej wizyty lekarskiej,
+  po przekroczeniu czasu trwania aktualnej wizyty zwolni się miejsce i będzie dostępny dla pacjentów czekających na wizytę.
+- Pacjent ma możliwość wyeksportowania swojej recepty do formatu np. pdf, html. 
 
-System zarządzania przychodnią lekarską
+Język programowania użyty do pracy w projekcie: Java.
 
-JĘZYK PROGRAMOWANIA: 
-
-Java
-
-BAZA DANYCH:
-
-PostgreSQL
+System Zarządzania Bazą Danych: PostgreSQL.
