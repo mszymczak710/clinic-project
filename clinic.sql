@@ -1,7 +1,7 @@
 BEGIN;
 
 CREATE TABLE Patient (
-	patient_id INT NOT NULL,
+	patient_id BIGINT NOT NULL,
 	pesel VARCHAR(11),
 	first_name VARCHAR(15) NOT NULL,
 	last_name VARCHAR(20) NOT NULL,
@@ -26,7 +26,7 @@ CREATE TABLE Doctor (
 	last_name VARCHAR(20) NOT NULL,
 	job_execution_number INT NOT NULL UNIQUE,
 	specialization VARCHAR(30) NOT NULL,
-	manager BOOLEAN NOT NULL,
+	is_manager BOOLEAN NOT NULL,
 	PRIMARY KEY (doctor_id)
 );
 
@@ -35,13 +35,13 @@ INSERT INTO Doctor VALUES (2, 'Maria', 'Borowska', 742148, 'ginekolog', true);
 INSERT INTO Doctor VALUES (3, 'Elzbieta', 'Kalinowska', 854317, 'pediatra', false);
 
 CREATE TABLE Visit (
-	visit_id INT NOT NULL,
+	visit_id BIGINT NOT NULL,
 	date_of_visit DATE NOT NULL,
 	time_of_visit TIME NOT NULL,
 	duration_in_minutes INT NOT NULL,
-	patient_id INT NOT NULL,
+	patient_id BIGINT NOT NULL,
 	doctor_id INT NOT NULL,
-	office_number NUMERIC(4) NOT NULL UNIQUE,
+	office_number INT NOT NULL UNIQUE,
 	PRIMARY KEY (visit_id)
 );
 
@@ -49,7 +49,7 @@ INSERT INTO Visit VALUES (1, '2022-06-30', '12:00:00', 30, 2, 1, 3);
 INSERT INTO Visit VALUES (2, '2022-06-30', '10:00:00', 45, 4, 2, 2);
 
 CREATE TABLE Office (
-	office_number NUMERIC(4) NOT NULL,
+	office_number INT NOT NULL,
 	type_of_office VARCHAR(20) NOT NULL,
 	PRIMARY KEY (office_number)
 );
@@ -65,8 +65,8 @@ CREATE TABLE Prescription (
 	code_of_prescription INT NOT NULL,
 	date_of_issue DATE NOT NULL,
 	expiration_date DATE NOT NULL,
-	visit_id INT NOT NULL,
-	patient_id INT NOT NULL,
+	visit_id BIGINT NOT NULL,
+	patient_id BIGINT NOT NULL,
 	PRIMARY KEY (prescription_id)
 );
 
