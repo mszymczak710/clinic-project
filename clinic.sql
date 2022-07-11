@@ -66,17 +66,15 @@ CREATE TABLE Prescription (
 	date_of_issue DATE NOT NULL,
 	expiration_date DATE NOT NULL,
 	visit_id BIGINT NOT NULL,
-	patient_id BIGINT NOT NULL,
 	PRIMARY KEY (prescription_id)
 );
 
-INSERT INTO Prescription VALUES (1, 'Lekarstwo na bol gardla', 3342, '2022-06-30', '2022-07-30', 1, 2);
+INSERT INTO Prescription VALUES (1, 'Lekarstwo na bol gardla', 3342, '2022-06-30', '2022-07-30', 1);
 
 ALTER TABLE Visit ADD CONSTRAINT Visit_fk0 FOREIGN KEY (patient_id) REFERENCES Patient(patient_id);
 ALTER TABLE Visit ADD CONSTRAINT Visit_fk1 FOREIGN KEY (doctor_id) REFERENCES Doctor(doctor_id);
 ALTER TABLE Visit ADD CONSTRAINT Visit_fk2 FOREIGN KEY (office_number) REFERENCES Office(office_number);
 
 ALTER TABLE Prescription ADD CONSTRAINT Prescription_fk0 FOREIGN KEY (visit_id) REFERENCES Visit(visit_id);
-ALTER TABLE Prescription ADD CONSTRAINT Prescription_fk1 FOREIGN KEY (patient_id) REFERENCES Patient(patient_id);
 
 END;
