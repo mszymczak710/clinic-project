@@ -11,6 +11,7 @@ public class Serwer {
 
     public static void main(String[] args) {
         ServerSocket serwer;
+
         try {
             System.out.println("[ SERWER ]: nasluchuje na porcie " + PORT);
             serwer = new ServerSocket(PORT);
@@ -20,7 +21,7 @@ public class Serwer {
                 Socket gniazdo = serwer.accept();
                 System.out.println("[ SERWER ]: nawiazano polaczenie z klientem");
 
-                UslugaHTTP usluga = new UslugaHTTP(gniazdo);
+                ServerThread usluga = new ServerThread(gniazdo);
                 Thread watek = new Thread(usluga);
                 watek.start();
 
