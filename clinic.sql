@@ -9,7 +9,7 @@ CREATE TABLE Patient (
 	address VARCHAR(50) NOT NULL,
 	city VARCHAR(15) NOT NULL,
 	zip_code VARCHAR(6) NOT NULL,
-	phone_number NUMERIC(9) NOT NULL,
+	phone_number VARCHAR(9) NOT NULL,
 	email_address VARCHAR(30),
 	PRIMARY KEY (patient_id)
 );
