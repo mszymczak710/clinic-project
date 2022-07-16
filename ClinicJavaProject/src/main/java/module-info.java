@@ -5,8 +5,8 @@ module org.clinic.clinic {
     requires java.persistence;
     requires java.sql;
 
-    opens org.clinic.clinic to javafx.fxml;
-    exports org.clinic.clinic;
+    opens org.clinic to javafx.fxml;
+    exports org.clinic;
     exports org.clinic.gui;
     opens org.clinic.gui to javafx.fxml;
 }

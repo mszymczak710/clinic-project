@@ -3,7 +3,6 @@ package org.clinic;
 import org.clinic.database_config.Patient;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class PatientDataValidator {
 
@@ -11,6 +10,30 @@ public class PatientDataValidator {
         String PESEL = patient.getPesel();
 
         if (!PESEL.matches("^\\d{11}$")) return false;
+
+        return true;
+    }
+
+    public boolean isZipCodeValid(Patient patient) {
+        String ZipCode = patient.getZipCode();
+
+        if (!ZipCode.matches("^[0-9]{2}-?[0-9]{3}$")) return false;
+
+        return true;
+    }
+
+    public boolean isPhoneNumberValid(Patient patient) {
+        String phoneNumber = patient.getPhoneNumber();
+
+        if (!phoneNumber.matches("[1-9]\\d{2}\\d{3}\\d{3}")) return false;
+
+        return true;
+    }
+
+    public boolean isEmailAddressValid(Patient patient) {
+        String emailAddress = patient.getEmailAddress();
+
+        if (!emailAddress.matches("^.+@.+\\..+$")) return false;
 
         return true;
     }

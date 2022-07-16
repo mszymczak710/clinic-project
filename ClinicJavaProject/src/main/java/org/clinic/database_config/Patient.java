@@ -34,7 +34,7 @@ public class Patient {
     private String zipCode;
     @Basic
     @Column(name = "phone_number")
-    private int phoneNumber;
+    private String phoneNumber;
     @Basic
     @Column(name = "email_address")
     private String emailAddress;
@@ -43,7 +43,7 @@ public class Patient {
 
     public Patient() {}
 
-    public Patient(long patientId, String pesel, String firstName, String lastName, Date dateOfBirth, String address, String city, String zipCode, int phoneNumber, String emailAddress) {
+    public Patient(long patientId, String pesel, String firstName, String lastName, Date dateOfBirth, String address, String city, String zipCode, String phoneNumber, String emailAddress) {
         this.patientId = patientId;
         this.pesel = pesel;
         this.firstName = firstName;
@@ -121,11 +121,11 @@ public class Patient {
         this.zipCode = zipCode;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
