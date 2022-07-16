@@ -5,16 +5,16 @@
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
     <persistence-unit name="default">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <class>org.clinic.database_config.Doctor</class>
-        <class>org.clinic.database_config.Office</class>
-        <class>org.clinic.database_config.Patient</class>
-        <class>org.clinic.database_config.Prescription</class>
-        <class>org.clinic.database_config.Visit</class>
+        <class>org.clinic.database.tables.Doctor</class>
+        <class>org.clinic.database.tables.Office</class>
+        <class>org.clinic.database.tables.Patient</class>
+        <class>org.clinic.database.tables.Prescription</class>
+        <class>org.clinic.database.tables.Visit</class>
         <properties>
-            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://sxterm.mat.umk.pl/mszymczak710"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/postgres"/>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
-            <property name="javax.persistence.jdbc.username" value="mszymczak710"/>
-            <property name="javax.persistence.jdbc.password" value="***"/>
+            <property name="javax.persistence.jdbc.username" value="postgres"/>
+            <property name="javax.persistence.jdbc.password" value=""/>
             <property name="hibernate.connection.autocommit" value= "true" />
         </properties>
     </persistence-unit>

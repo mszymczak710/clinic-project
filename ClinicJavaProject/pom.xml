@@ -17,6 +17,7 @@
     </properties>
 
     <dependencies>
+
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
@@ -70,7 +71,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
-            <version>5.4.21.Final</version>
+            <version>5.3.6.Final</version>
         </dependency>
 
         <dependency>
@@ -84,6 +85,13 @@
             <artifactId>jackson-xml-databind</artifactId>
             <version>0.6.2</version>
             <scope>compile</scope>
+        </dependency>
+        <!--proba naprawy javax.persistence.spi.PersistenceProviderResolverHolder$DefaultPersistenceProviderResolver log
+WARNING: javax.persistence.spi::No valid providers found.  -->
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>2.0.1.Final</version>
         </dependency>
 
     </dependencies>

@@ -1,7 +1,7 @@
 package org.clinic.server;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.clinic.database_config.Doctor;
+import org.clinic.database.tables.Doctor;
 
 public class JsonDemo {
 

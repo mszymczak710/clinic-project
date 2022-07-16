@@ -2,7 +2,7 @@ package org.clinic.server;
 // polaczenie serwer klient
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.clinic.database_config.Doctor;
+import org.clinic.database.tables.Doctor;
 
 import java.io.*;
 import java.net.Socket;
