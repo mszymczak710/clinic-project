@@ -14,11 +14,11 @@ CREATE TABLE Patient (
 	PRIMARY KEY (patient_id)
 );
 
-INSERT INTO Patient VALUES (1, '97062064754', 'Mateusz', 'Kowalski', '1997-06-20', 'Warynskiego 13', 'Torun', '87-100', 728534121, 'matikowalski@interia.pl');
-INSERT INTO Patient VALUES (2, '58012659938', 'Eugeniusz', 'Walczak', '1958-01-26', 'Mickiewicza 132/12', 'Torun', '87-100', 542324367, NULL);
-INSERT INTO Patient VALUES (3, NULL, 'Denys', 'Kovalenko', '2000-03-23', 'Mickiewicza 132/12', 'Torun', '87-100', 501844140, 'denyskov@wp.pl');
-INSERT INTO Patient VALUES (4, '02262054621', 'Nikola', 'Jankowska', '2002-06-20', 'Mostowa 13/1', 'Torun', '87-100', 608244154, 'nikijankowska@onet.pl');
-INSERT INTO Patient VALUES (5, '67051039999', 'Eustachy', 'Wozniak', '1967-05-10', 'Waniliowa 15', 'Torun', '87-100', 575354102, NULL);
+INSERT INTO Patient VALUES (1, '97062064754', 'Mateusz', 'Kowalski', '1997-06-20', 'Warynskiego 13', 'Torun', '87-100', '728534121', 'matikowalski@interia.pl');
+INSERT INTO Patient VALUES (2, '58012659938', 'Eugeniusz', 'Walczak', '1958-01-26', 'Mickiewicza 132/12', 'Torun', '87-100', '542324367', NULL);
+INSERT INTO Patient VALUES (3, NULL, 'Denys', 'Kovalenko', '2000-03-23', 'Mickiewicza 132/12', 'Torun', '87-100', '501844140', 'denyskov@wp.pl');
+INSERT INTO Patient VALUES (4, '02262054621', 'Nikola', 'Jankowska', '2002-06-20', 'Mostowa 13/1', 'Torun', '87-100', '608244154', 'nikijankowska@onet.pl');
+INSERT INTO Patient VALUES (5, '67051039999', 'Eustachy', 'Wozniak', '1967-05-10', 'Waniliowa 15', 'Torun', '87-100', '575354102', NULL);
 
 CREATE TABLE Doctor (
 	doctor_id INT NOT NULL,
