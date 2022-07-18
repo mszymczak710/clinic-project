@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<persistence version="2.2"
-             xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
-    <persistence-unit name="default">
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
+             version="3.0">
+    <persistence-unit name="MyPersistenUnit"   >
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <class>org.clinic.database.tables.Doctor</class>
         <class>org.clinic.database.tables.Office</class>
@@ -11,11 +11,11 @@
         <class>org.clinic.database.tables.Prescription</class>
         <class>org.clinic.database.tables.Visit</class>
         <properties>
-            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/postgres"/>
-            <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
-            <property name="javax.persistence.jdbc.username" value="postgres"/>
-            <property name="javax.persistence.jdbc.password" value="ASDaa!112"/>
-            <property name="hibernate.connection.autocommit" value= "true" />
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/postgres"/>
+            <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+            <property name="jakarta.persistence.jdbc.username" value="postgres"/>
+            <property name="jakarta.persistence.jdbc.password" value="ASDaa!112"/>
+
         </properties>
     </persistence-unit>
 </persistence>

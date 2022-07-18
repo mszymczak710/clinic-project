@@ -2,20 +2,35 @@ package org.clinic.database.functions;
 
 import org.clinic.database.tables.Patient;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
+import jakarta.persistence.*;
+
 import java.sql.Date;
 
-import static org.clinic.database.functions.JPAUtil.getEntityManagerFactory;
 
 // definicja operacji na bazie
 public class DatabaseOperations {
+    EntityManagerFactory entityManagerFactory ;
+    EntityManager entityManager;
+    EntityTransaction entityTransaction ;
+
+    private void startConfigORM()
+    {
+
+
+            /*TU SIE WYWALA*/
+            entityManagerFactory = Persistence.createEntityManagerFactory("MyPersistenUnit");
+            entityManager = entityManagerFactory.createEntityManager();
+        entityTransaction = entityManager.getTransaction();
+    }
+
+
     public void insertOperation() {
-        EntityManager entityManager = getEntityManagerFactory().createEntityManager();
-        EntityTransaction entityTransaction = entityManager.getTransaction();
+        startConfigORM();
+
         entityTransaction.begin();
         String str = "2001-01-03";
         Date dateOfBirth = Date.valueOf(str);
+
         Patient patient = new Patient(1, "01210307910", "Mateusz", "Szymczak", dateOfBirth, "Jana Sobieskiego 8/26", "Torun", "87-100", "578224122", null);
         entityManager.persist(patient);
         entityManager.getTransaction().commit();
@@ -23,8 +38,7 @@ public class DatabaseOperations {
     }
 
     public void selectOperation() {
-        EntityManager entityManager = getEntityManagerFactory().createEntityManager();
-        entityManager.getTransaction().begin();
+      startConfigORM();
 
         Patient patient = entityManager.find(Patient.class, 1);
         System.out.println("Patient ID : " + patient.getPatientId());
@@ -42,8 +56,7 @@ public class DatabaseOperations {
     }
 
     public void updateOperation() {
-        EntityManager entityManager = getEntityManagerFactory().createEntityManager();
-        entityManager.getTransaction().begin();
+        startConfigORM();
 
         Patient patient = entityManager.find(Patient.class, 1);
         System.out.println("Patient ID : " + patient.getPatientId());
@@ -64,8 +77,7 @@ public class DatabaseOperations {
     }
 
     public void deleteOperation() {
-        EntityManager entityManager = getEntityManagerFactory().createEntityManager();
-        entityManager.getTransaction().begin();
+        startConfigORM();
 
         Patient patient = entityManager.find(Patient.class, 1);
         System.out.println("Patient ID : " + patient.getPatientId());

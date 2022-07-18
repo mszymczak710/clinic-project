@@ -1,6 +1,6 @@
 package org.clinic.database.tables;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.sql.Date;
 import java.util.Collection;
 

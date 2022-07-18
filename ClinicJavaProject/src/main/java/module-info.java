@@ -4,6 +4,7 @@ module org.clinic.clinic {
     requires com.fasterxml.jackson.databind;
     requires java.persistence;
     requires java.sql;
+    requires jakarta.persistence;
 
     exports org.clinic.server;
     opens org.clinic.server to javafx.fxml;
