@@ -7,6 +7,8 @@ CREATE TABLE logs(
   current_opperation varchar(6),
   count_of_entities bigint
 );
+
+
 create or replace function entities_count()
 returns bigint
 language plpgsql
@@ -15,7 +17,7 @@ $$
 declare
    count bigint;
 begin
-   count = (SELECT((SELECT COUNT(*) FROM doctors)+(SELECT COUNT(*) FROM offices)+(SELECT COUNT(*) FROM prescriptions)+(SELECT COUNT(*) FROM visits)));
+   count = (SELECT((SELECT COUNT(*) FROM patients)+(SELECT COUNT(*) FROM doctors)+(SELECT COUNT(*) FROM offices)+(SELECT COUNT(*) FROM prescriptions)+(SELECT COUNT(*) FROM visits)));
    return count;
 end;
 $$;
@@ -44,6 +46,6 @@ INSERT INTO logs(tab,date,current_opperation,count_of_entities)
 VALUES (TG_TABLE_NAME ,user,now(),'DELETE',entities_count());
 RETURN OLD; -- . The usual idiom in DELETE triggers is to return OLD.
 END IF; 
-
+RETURN null;
 END; 
 $BODY$;
