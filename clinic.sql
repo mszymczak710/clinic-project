@@ -6,9 +6,9 @@ CREATE TABLE Patient (
 	first_name VARCHAR(20) NOT NULL,
 	last_name VARCHAR(20) NOT NULL,
 	date_of_birth DATE NOT NULL,
-	address VARCHAR(50) ,
+	address VARCHAR(50),
 	city VARCHAR(26),
-	zip_code VARCHAR(6) ,
+	zip_code VARCHAR(6),
 	phone_number VARCHAR(9) NOT NULL,
 	email_address VARCHAR(30),
 	PRIMARY KEY (patient_id)
