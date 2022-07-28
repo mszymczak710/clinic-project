@@ -1,7 +1,7 @@
 BEGIN;
 
 CREATE TABLE Patients (
-	patient_id BIGINT NOT NULL,
+	patient_id INT NOT NULL,
 	pesel VARCHAR(11),
 	first_name VARCHAR(20) NOT NULL,
 	last_name VARCHAR(20) NOT NULL,
@@ -34,7 +34,7 @@ INSERT INTO Doctors VALUES (2, 'Maria', 'Borowska', 742148, 'ginekolog');
 INSERT INTO Doctors VALUES (3, 'Elzbieta', 'Kalinowska', 854317, 'pediatra');
 
 CREATE TABLE Visits (
-	visit_id BIGINT NOT NULL,
+	visit_id INT NOT NULL,
 	date_of_visit DATE NOT NULL,
 	time_of_visit TIME NOT NULL,
 	duration_in_minutes INT NOT NULL,
