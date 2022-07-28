@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.util.Collection;
+import java.util.Objects;
 
 @Entity
 @Table(name = "doctors", schema = "public", catalog = "clinic")
@@ -25,9 +26,6 @@ public class Doctors {
     @Basic
     @Column(name = "specialization")
     private String specialization;
-    @Basic
-    @Column(name = "manager")
-    private boolean manager;
     @OneToMany(mappedBy = "doctorsByDoctorId")
     private Collection<Visits> visitsByDoctorId;
 
@@ -71,14 +69,6 @@ public class Doctors {
         this.specialization = specialization;
     }
 
-    public boolean isManager() {
-        return manager;
-    }
-
-    public void setManager(boolean manager) {
-        this.manager = manager;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -88,11 +78,9 @@ public class Doctors {
 
         if (doctorId != that.doctorId) return false;
         if (jobExecutionNumber != that.jobExecutionNumber) return false;
-        if (manager != that.manager) return false;
-        if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) return false;
-        if (lastName != null ? !lastName.equals(that.lastName) : that.lastName != null) return false;
-        if (specialization != null ? !specialization.equals(that.specialization) : that.specialization != null)
-            return false;
+        if (!Objects.equals(firstName, that.firstName)) return false;
+        if (!Objects.equals(lastName, that.lastName)) return false;
+        if (!Objects.equals(specialization, that.specialization)) return false;
 
         return true;
     }
@@ -104,7 +92,6 @@ public class Doctors {
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         result = 31 * result + jobExecutionNumber;
         result = 31 * result + (specialization != null ? specialization.hashCode() : 0);
-        result = 31 * result + (manager ? 1 : 0);
         return result;
     }
 

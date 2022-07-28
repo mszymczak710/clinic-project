@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.util.Collection;
+import java.util.Objects;
 
 @Entity
 @Table(name = "offices", schema = "public", catalog = "clinic")
@@ -43,7 +44,7 @@ public class Offices {
         Offices that = (Offices) o;
 
         if (officeNumber != that.officeNumber) return false;
-        if (typeOfOffice != null ? !typeOfOffice.equals(that.typeOfOffice) : that.typeOfOffice != null) return false;
+        if (!Objects.equals(typeOfOffice, that.typeOfOffice)) return false;
 
         return true;
     }

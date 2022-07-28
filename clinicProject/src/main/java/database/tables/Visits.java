@@ -6,6 +6,7 @@ import org.hibernate.annotations.GenericGenerator;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.Collection;
+import java.util.Objects;
 
 @Entity
 @Table(name = "visits", schema = "public", catalog = "clinic")
@@ -113,8 +114,8 @@ public class Visits {
         if (patientId != that.patientId) return false;
         if (doctorId != that.doctorId) return false;
         if (officeNumber != that.officeNumber) return false;
-        if (dateOfVisit != null ? !dateOfVisit.equals(that.dateOfVisit) : that.dateOfVisit != null) return false;
-        if (timeOfVisit != null ? !timeOfVisit.equals(that.timeOfVisit) : that.timeOfVisit != null) return false;
+        if (!Objects.equals(dateOfVisit, that.dateOfVisit)) return false;
+        if (!Objects.equals(timeOfVisit, that.timeOfVisit)) return false;
 
         return true;
     }

@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import java.sql.Date;
 import java.util.Collection;
+import java.util.Objects;
 
 @Entity
 @Table(name = "patients", schema = "public", catalog = "clinic")
@@ -37,7 +38,7 @@ public class Patients {
     private String zipCode;
     @Basic
     @Column(name = "phone_number")
-    private int phoneNumber;
+    private String phoneNumber;
     @Basic
     @Column(name = "email_address")
     private String emailAddress;
@@ -110,11 +111,11 @@ public class Patients {
         this.zipCode = zipCode;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -152,15 +153,15 @@ public class Patients {
         Patients that = (Patients) o;
 
         if (patientId != that.patientId) return false;
-        if (phoneNumber != that.phoneNumber) return false;
-        if (pesel != null ? !pesel.equals(that.pesel) : that.pesel != null) return false;
-        if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) return false;
-        if (lastName != null ? !lastName.equals(that.lastName) : that.lastName != null) return false;
-        if (dateOfBirth != null ? !dateOfBirth.equals(that.dateOfBirth) : that.dateOfBirth != null) return false;
-        if (address != null ? !address.equals(that.address) : that.address != null) return false;
-        if (city != null ? !city.equals(that.city) : that.city != null) return false;
-        if (zipCode != null ? !zipCode.equals(that.zipCode) : that.zipCode != null) return false;
-        if (emailAddress != null ? !emailAddress.equals(that.emailAddress) : that.emailAddress != null) return false;
+        if (!Objects.equals(pesel, that.pesel)) return false;
+        if (!Objects.equals(firstName, that.firstName)) return false;
+        if (!Objects.equals(lastName, that.lastName)) return false;
+        if (!Objects.equals(dateOfBirth, that.dateOfBirth)) return false;
+        if (!Objects.equals(address, that.address)) return false;
+        if (!Objects.equals(city, that.city)) return false;
+        if (!Objects.equals(zipCode, that.zipCode)) return false;
+        if (!Objects.equals(phoneNumber, that.phoneNumber)) return false;
+        if (!Objects.equals(emailAddress, that.emailAddress)) return false;
 
         return true;
     }
@@ -175,7 +176,7 @@ public class Patients {
         result = 31 * result + (address != null ? address.hashCode() : 0);
         result = 31 * result + (city != null ? city.hashCode() : 0);
         result = 31 * result + (zipCode != null ? zipCode.hashCode() : 0);
-        result = 31 * result + phoneNumber;
+        result = 31 * result + (phoneNumber != null ? phoneNumber.hashCode() : 0);
         result = 31 * result + (emailAddress != null ? emailAddress.hashCode() : 0);
         return result;
     }

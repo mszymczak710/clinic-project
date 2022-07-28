@@ -7,37 +7,34 @@ import java.sql.Date;
 
 public class DBOperations {
 
-
-    public void PatientInsertOperation() {
+    public void patientInsertOperation() {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
-        EntityManager  entityManager = entityManagerFactory.createEntityManager();
-        EntityTransaction entityTransaction= entityManager.getTransaction();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction entityTransaction = entityManager.getTransaction();
 
-          try{
+        try {
             entityTransaction.begin();
-
 
             String str = "2001-01-03";
             Date dateOfBirth = Date.valueOf(str);
 
             Patients patient = new Patients();
-            System.out.println(patient.toString());
+            System.out.println(patient);
             patient.setFirstName("Testowy");
             patient.setLastName("dzialaj");
             patient.setDateOfBirth(dateOfBirth);
-            patient.setZipCode("100-13");
+            patient.setZipCode("10-513");
             patient.setPesel("97862084754");
             patient.setCity("ryte blota");
             patient.setAddress("blotna 409");
             patient.setEmailAddress("www@xd.pl");
-            patient.setPhoneNumber(441241244);
-            System.out.println(patient.toString());
+            patient.setPhoneNumber("441241244");
+            System.out.println(patient);
             patient.setPatientId(112);
             entityManager.merge(patient);
             entityTransaction.commit();
         } finally {
-            if(entityTransaction.isActive())
-            {
+            if(entityTransaction.isActive()) {
                 entityTransaction.rollback();
             }
             entityManager.close();
@@ -45,7 +42,8 @@ public class DBOperations {
 
         }
     }
-    public void PatientSelectOperation(int id) {
+
+    public void patientSelectOperation(int id) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
         EntityManager  entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction entityTransaction= entityManager.getTransaction();
@@ -70,26 +68,28 @@ public class DBOperations {
             entityManagerFactory.close();
         }
      }
-    public void PatientupdateOperation(int id) {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
-        EntityManager  entityManager = entityManagerFactory.createEntityManager();
-        EntityTransaction entityTransaction= entityManager.getTransaction();
-        try {
-        Patients patient = entityManager.find(Patients.class, id);
-        System.out.println("Patient ID : " + patient.getPatientId());
-        System.out.println("PESEL :: " + patient.getPesel());
-        System.out.println("First Name :: " + patient.getFirstName());
-        System.out.println("Last Name :: " + patient.getLastName());
-        System.out.println("Date of Birth :: " + patient.getDateOfBirth());
-        System.out.println("City :: " + patient.getCity());
-        System.out.println("ZIP Code :: " + patient.getZipCode());
-        System.out.println("Phone number :: " + patient.getPhoneNumber());
-        System.out.println("E-mail address :: " + patient.getEmailAddress());
 
-        patient.setFirstName("Mariusz");
-        patient.setLastName("Szymczak");
-        patient.setEmailAddress("mszymczak710@o2.pl");
-        entityTransaction.commit();
+    public void patientUpdateOperation(int id) {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction entityTransaction= entityManager.getTransaction();
+
+        try {
+            Patients patient = entityManager.find(Patients.class, id);
+            System.out.println("Patient ID : " + patient.getPatientId());
+            System.out.println("PESEL :: " + patient.getPesel());
+            System.out.println("First Name :: " + patient.getFirstName());
+            System.out.println("Last Name :: " + patient.getLastName());
+            System.out.println("Date of Birth :: " + patient.getDateOfBirth());
+            System.out.println("City :: " + patient.getCity());
+            System.out.println("ZIP Code :: " + patient.getZipCode());
+            System.out.println("Phone number :: " + patient.getPhoneNumber());
+            System.out.println("E-mail address :: " + patient.getEmailAddress());
+
+            patient.setFirstName("Mariusz");
+            patient.setLastName("Szymczak");
+            patient.setEmailAddress("mszymczak710@o2.pl");
+            entityTransaction.commit();
         } finally {
             if (entityTransaction.isActive()) {
                 entityTransaction.rollback();
@@ -99,33 +99,31 @@ public class DBOperations {
         }
     }
 
-    public void PatientdeleteOperation(int id) {
+    public void patientDeleteOperation(int id) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
-        EntityManager  entityManager = entityManagerFactory.createEntityManager();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction entityTransaction= entityManager.getTransaction();
-            try {
-        Patients patient = entityManager.find(Patients.class, id);
-        System.out.println("Patient ID : " + patient.getPatientId());
-        System.out.println("PESEL :: " + patient.getPesel());
-        System.out.println("First Name :: " + patient.getFirstName());
-        System.out.println("Last Name :: " + patient.getLastName());
-        System.out.println("Date of Birth :: " + patient.getDateOfBirth());
-        System.out.println("City :: " + patient.getCity());
-        System.out.println("ZIP Code :: " + patient.getZipCode());
-        System.out.println("Phone number :: " + patient.getPhoneNumber());
-        System.out.println("E-mail address :: " + patient.getEmailAddress());
 
-        entityManager.remove(patient);
-        entityTransaction.commit();
-            } finally {
-                if (entityTransaction.isActive()) {
-                    entityTransaction.rollback();
-                }
-                entityManager.close();
-                entityManagerFactory.close();
+        try {
+            Patients patient = entityManager.find(Patients.class, id);
+            System.out.println("Patient ID : " + patient.getPatientId());
+            System.out.println("PESEL :: " + patient.getPesel());
+            System.out.println("First Name :: " + patient.getFirstName());
+            System.out.println("Last Name :: " + patient.getLastName());
+            System.out.println("Date of Birth :: " + patient.getDateOfBirth());
+            System.out.println("City :: " + patient.getCity());
+            System.out.println("ZIP Code :: " + patient.getZipCode());
+            System.out.println("Phone number :: " + patient.getPhoneNumber());
+            System.out.println("E-mail address :: " + patient.getEmailAddress());
+
+            entityManager.remove(patient);
+            entityTransaction.commit();
+        } finally {
+            if (entityTransaction.isActive()) {
+                entityTransaction.rollback();
             }
+            entityManager.close();
+            entityManagerFactory.close();
+        }
     }
-
-
-
 }
