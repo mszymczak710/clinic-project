@@ -6,11 +6,11 @@ public class DBAPP {
 
     public static void main(String[] args) {
         DBOperations dbOperations= new DBOperations();
-        dbOperations.patientInsertOperation();
-      //  dbOperations.patientUpdateOperation(7);
+       dbOperations.PatientInsertOperation();
+        //dbOperations.PatientupdateOperation(1);
         System.out.println("select----------------------------");
-       // dbOperations.patientSelectOperation(7);
-        //dbOperations.patientDeleteOperation(5);
+        //dbOperations.PatientSelectOperation(1);
+        //dbOperations.PatientdeleteOperation(5);
 
     }
 
