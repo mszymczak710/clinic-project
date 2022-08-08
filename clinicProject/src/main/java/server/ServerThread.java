@@ -17,8 +17,12 @@ public class ServerThread implements Runnable{
     BufferedReader inputStream ;
     PrintStream outputStream ;
     DBAPI dbapi;
-    public ServerThread(Socket socket) {
-        this.socket = socket;
+    public ServerThread(Socket socket) throws IOException {
+        try {
+            this.socket = socket;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
     
     public void run () {
@@ -43,7 +47,7 @@ public class ServerThread implements Runnable{
         System.out.println("* ------ *");
     }
 
-   private void clientCommunication() throws IOException;
+   private void clientCommunication() throws IOException
    {
         /* czy sprawdzamy odrazu status accesu? */
        /*czy szukamy cos na pierwsze spojrzenie? */
@@ -51,8 +55,10 @@ public class ServerThread implements Runnable{
        /*petla obslugujaca zapytania */
        while (true)
        {
-           while(inputStream.n)
-           clientMessage = inputStream.readLine()
+           try {
+               clientMessage = inputStream.readLine();
+           } finally {
+           }
        }
 
    }
