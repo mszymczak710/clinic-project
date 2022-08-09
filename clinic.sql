@@ -6,9 +6,9 @@ CREATE TABLE Patients (
 	first_name VARCHAR(20) NOT NULL,
 	last_name VARCHAR(20) NOT NULL,
 	date_of_birth DATE NOT NULL,
-	address VARCHAR(50) ,
+	address VARCHAR(50),
 	city VARCHAR(26),
-	zip_code VARCHAR(6) ,
+	zip_code VARCHAR(6),
 	phone_number VARCHAR(9) NOT NULL,
 	email_address VARCHAR(30),
 	PRIMARY KEY (patient_id)
@@ -19,6 +19,14 @@ INSERT INTO Patients VALUES (2, '58012659938', 'Eugeniusz', 'Walczak', '1958-01-
 INSERT INTO Patients VALUES (3, NULL, 'Denys', 'Kovalenko', '2000-03-23', 'Mickiewicza 132/12', 'Torun', '87-100', '501844140', 'denyskov@wp.pl');
 INSERT INTO Patients VALUES (4, '02262054621', 'Nikola', 'Jankowska', '2002-06-20', 'Mostowa 13/1', 'Torun', '87-100', '608244154', 'nikijankowska@onet.pl');
 INSERT INTO Patients VALUES (5, '67051039999', 'Eustachy', 'Wozniak', '1967-05-10', 'Waniliowa 15', 'Torun', '87-100', '575354102', NULL);
+
+CREATE TABLE PatientLoginData (
+	login INT NOT NULL,
+	password VARCHAR(20) NOT NULL,
+	PRIMARY KEY (login)
+);
+
+INSERT INTO PatientLoginData VALUES (1, 'deszcz123');
 
 CREATE TABLE Doctors (
 	doctor_id INT NOT NULL,
@@ -32,6 +40,14 @@ CREATE TABLE Doctors (
 INSERT INTO Doctors VALUES (1, 'Jan', 'Kowalski', 654321, 'internista');
 INSERT INTO Doctors VALUES (2, 'Maria', 'Borowska', 742148, 'ginekolog');
 INSERT INTO Doctors VALUES (3, 'Elzbieta', 'Kalinowska', 854317, 'pediatra');
+
+CREATE TABLE DoctorLoginData (
+	login INT NOT NULL,
+	password VARCHAR(20) NOT NULL,
+	PRIMARY KEY (login)
+);
+
+INSERT INTO DoctorLoginData VALUES (654321, 'slonce321');
 
 CREATE TABLE Visits (
 	visit_id INT NOT NULL,
@@ -75,5 +91,9 @@ ALTER TABLE Visits ADD CONSTRAINT Visits_fk1 FOREIGN KEY (doctor_id) REFERENCES 
 ALTER TABLE Visits ADD CONSTRAINT Visits_fk2 FOREIGN KEY (office_number) REFERENCES Offices(office_number);
 
 ALTER TABLE Prescriptions ADD CONSTRAINT Prescriptions_fk0 FOREIGN KEY (visit_id) REFERENCES Visits(visit_id);
+
+ALTER TABLE PatientLoginData ADD CONSTRAINT PatientLoginData_fk0 FOREIGN KEY (login) REFERENCES Patients(patient_id);
+
+ALTER TABLE DoctorLoginData ADD CONSTRAINT DoctorLoginData_fk0 FOREIGN KEY (login) REFERENCES Doctors(job_execution_number);
 
 END;
