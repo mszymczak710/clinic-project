@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import java.sql.Date;
 import java.util.Collection;
+import java.util.Objects;
 
 @Entity
 @Table(name = "patients", schema = "public", catalog = "clinic")
@@ -153,14 +154,14 @@ public class Patients {
 
         if (patientId != that.patientId) return false;
         if (phoneNumber != that.phoneNumber) return false;
-        if (pesel != null ? !pesel.equals(that.pesel) : that.pesel != null) return false;
-        if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) return false;
-        if (lastName != null ? !lastName.equals(that.lastName) : that.lastName != null) return false;
-        if (dateOfBirth != null ? !dateOfBirth.equals(that.dateOfBirth) : that.dateOfBirth != null) return false;
-        if (address != null ? !address.equals(that.address) : that.address != null) return false;
-        if (city != null ? !city.equals(that.city) : that.city != null) return false;
-        if (zipCode != null ? !zipCode.equals(that.zipCode) : that.zipCode != null) return false;
-        if (emailAddress != null ? !emailAddress.equals(that.emailAddress) : that.emailAddress != null) return false;
+        if (!Objects.equals(pesel, that.pesel)) return false;
+        if (!Objects.equals(firstName, that.firstName)) return false;
+        if (!Objects.equals(lastName, that.lastName)) return false;
+        if (!Objects.equals(dateOfBirth, that.dateOfBirth)) return false;
+        if (!Objects.equals(address, that.address)) return false;
+        if (!Objects.equals(city, that.city)) return false;
+        if (!Objects.equals(zipCode, that.zipCode)) return false;
+        if (!Objects.equals(emailAddress, that.emailAddress)) return false;
 
         return true;
     }
