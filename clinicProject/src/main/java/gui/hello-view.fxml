@@ -1,16 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="org.clinic.gui.HelloController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-    </padding>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
+<VBox alignment="CENTER" prefHeight="621.0" prefWidth="432.0" spacing="20.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.alarm.HelloController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+   <children>
+      <Label alignment="TOP_CENTER" prefHeight="68.0" prefWidth="191.0" text="Przychodnia" textFill="#1174bf">
+         <font>
+            <Font name="System Bold" size="26.0" />
+         </font>
+      </Label>
+      <Button mnemonicParsing="false" text="Zaloguj" />
+      <Button mnemonicParsing="false" text="Wyloguj" />
+      <Label fx:id="fieldAlarm" alignment="TOP_CENTER" prefHeight="432.0" prefWidth="300.0" wrapText="true" />
+      <HBox>
+          <Button fx:id="addAlarm" mnemonicParsing="false" onAction="#addNewAlarm" text="Add" textAlignment="CENTER" />
+          <Pane HBox.hgrow="ALWAYS" />
+          <Button fx:id="exitApp" mnemonicParsing="false" onAction="#onExitAppClick" text="Exit" textAlignment="CENTER" />
+      </HBox>
+   </children>
 </VBox>
