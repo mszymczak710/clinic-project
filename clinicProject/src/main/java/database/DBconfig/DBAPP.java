@@ -6,9 +6,12 @@ public class DBAPP {
 
     public static void main(String[] args) {
         DBOperations dbOperations= new DBOperations();
-        //dbOperations.PatientInsertOperation();
+       dbOperations.PatientInsertOperation();
+        //dbOperations.PatientupdateOperation(1);
+        System.out.println("select----------------------------");
         //dbOperations.PatientSelectOperation(1);
-        dbOperations.PatientupdateOperation(7);
+        //dbOperations.PatientdeleteOperation(5);
+
     }
 
 }

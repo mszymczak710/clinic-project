@@ -22,17 +22,16 @@ public class DBOperations {
 
             Patients patient = new Patients();
             System.out.println(patient.toString());
-            patient.setFirstName("Testowy");
-            patient.setLastName("dzialaj");
+            patient.setFirstName("michal");
+            patient.setLastName("Probierz");
             patient.setDateOfBirth(dateOfBirth);
             patient.setZipCode("100-13");
-            patient.setPesel("97862084754");
+            patient.setPesel("123456");
             patient.setCity("ryte blota");
             patient.setAddress("blotna 409");
             patient.setEmailAddress("www@xd.pl");
-            patient.setPhoneNumber(441241244);
+            patient.setPhoneNumber("441241244");
             System.out.println(patient.toString());
-            patient.setPatientId(112);
             entityManager.merge(patient);
             entityTransaction.commit();
         } finally {
@@ -74,7 +73,9 @@ public class DBOperations {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
         EntityManager  entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction entityTransaction= entityManager.getTransaction();
+
         try {
+            entityTransaction.begin();
         Patients patient = entityManager.find(Patients.class, id);
         System.out.println("Patient ID : " + patient.getPatientId());
         System.out.println("PESEL :: " + patient.getPesel());
@@ -86,10 +87,21 @@ public class DBOperations {
         System.out.println("Phone number :: " + patient.getPhoneNumber());
         System.out.println("E-mail address :: " + patient.getEmailAddress());
 
-        patient.setFirstName("Mariusz");
-        patient.setLastName("Szymczak");
-        patient.setEmailAddress("mszymczak710@o2.pl");
-        entityTransaction.commit();
+        StringBuilder query= new StringBuilder("UPDATE patients p SET ");
+        query.append("first_name = ");
+            query.append("'ZMIAAAAAAAA' ");
+                query.append(", last_name = ");
+                        query.append("'DZIAAAAAAAAAJ' ");
+                             query.append("WHERE patient_id = ");
+                                    query.append(id);
+            System.out.println( query.toString());
+
+            entityManager.createNativeQuery(query.toString()).executeUpdate();
+
+            entityManager.flush();
+            System.out.println( query.toString());
+          entityTransaction.commit();
+
         } finally {
             if (entityTransaction.isActive()) {
                 entityTransaction.rollback();
@@ -104,6 +116,7 @@ public class DBOperations {
         EntityManager  entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction entityTransaction= entityManager.getTransaction();
             try {
+                entityTransaction.begin();
         Patients patient = entityManager.find(Patients.class, id);
         System.out.println("Patient ID : " + patient.getPatientId());
         System.out.println("PESEL :: " + patient.getPesel());
@@ -114,8 +127,12 @@ public class DBOperations {
         System.out.println("ZIP Code :: " + patient.getZipCode());
         System.out.println("Phone number :: " + patient.getPhoneNumber());
         System.out.println("E-mail address :: " + patient.getEmailAddress());
+        StringBuilder queryd = new StringBuilder("DELETE FROM patients WHERE patient_id = ");
+        queryd.append(id);
+                System.out.println(queryd.toString());
+        entityManager.createNativeQuery(queryd.toString()).executeUpdate();
 
-        entityManager.remove(patient);
+        entityManager.flush();
         entityTransaction.commit();
             } finally {
                 if (entityTransaction.isActive()) {

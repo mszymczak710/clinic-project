@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.sql.Date;
+import java.util.Objects;
 
 @Entity
 @Table(name = "prescriptions", schema = "public", catalog = "clinic")
@@ -28,15 +29,11 @@ public class Prescriptions {
     @Basic
     @Column(name = "visit_id")
     private int visitId;
-    @Basic
-    @Column(name = "patient_id")
-    private int patientId;
+
     @ManyToOne
     @JoinColumn(name = "visit_id", referencedColumnName = "visit_id",insertable = false, updatable = false)
     private Visits visitsByVisitId;
-    @ManyToOne
-    @JoinColumn(name = "patient_id", referencedColumnName = "patient_id",insertable = false, updatable = false)
-    private Patients patientsByPatientId;
+
 
     public int getPrescriptionId() {
         return prescriptionId;
@@ -86,13 +83,6 @@ public class Prescriptions {
         this.visitId = visitId;
     }
 
-    public int getPatientId() {
-        return patientId;
-    }
-
-    public void setPatientId(int patientId) {
-        this.patientId = patientId;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -104,10 +94,9 @@ public class Prescriptions {
         if (prescriptionId != that.prescriptionId) return false;
         if (codeOfPrescription != that.codeOfPrescription) return false;
         if (visitId != that.visitId) return false;
-        if (patientId != that.patientId) return false;
-        if (description != null ? !description.equals(that.description) : that.description != null) return false;
-        if (dateOfIssue != null ? !dateOfIssue.equals(that.dateOfIssue) : that.dateOfIssue != null) return false;
-        if (expirationDate != null ? !expirationDate.equals(that.expirationDate) : that.expirationDate != null)
+        if (!Objects.equals(description, that.description)) return false;
+        if (!Objects.equals(dateOfIssue, that.dateOfIssue)) return false;
+        if (!Objects.equals(expirationDate, that.expirationDate))
             return false;
 
         return true;
@@ -121,7 +110,6 @@ public class Prescriptions {
         result = 31 * result + (dateOfIssue != null ? dateOfIssue.hashCode() : 0);
         result = 31 * result + (expirationDate != null ? expirationDate.hashCode() : 0);
         result = 31 * result + visitId;
-        result = 31 * result + patientId;
         return result;
     }
 
@@ -133,11 +121,4 @@ public class Prescriptions {
         this.visitsByVisitId = visitsByVisitId;
     }
 
-    public Patients getPatientsByPatientId() {
-        return patientsByPatientId;
-    }
-
-    public void setPatientsByPatientId(Patients patientsByPatientId) {
-        this.patientsByPatientId = patientsByPatientId;
-    }
 }

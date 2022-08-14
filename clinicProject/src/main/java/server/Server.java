@@ -6,6 +6,9 @@ import java.net.Socket;
 import java.net.SocketException;
 
 public class Server {
+    /*ZAMYSŁ
+       DO SERWERA TRAFIA JSON Z KOMENDĄ
+       SERWER ODSYLA DO KLIENTA JSONA Z LISTĄ (OBIEKTOW Z BAZY)**/
     final static private int PORT = 9999;
 
     public static void main(String[] args) {

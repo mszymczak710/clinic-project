@@ -2,16 +2,27 @@ package server;
 // polaczenie serwer klient
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import database.DBconfig.DBAPI;
 import database.tables.Doctors;
 
 import java.io.*;
 import java.net.Socket;
-
+import com.fasterxml.jackson.*;
 public class ServerThread implements Runnable{
 
-    Socket socket;
-    public ServerThread(Socket socket) {
-        this.socket = socket;
+     Socket socket;
+    String clientMessage;
+    ObjectNode jsonNode;
+    BufferedReader inputStream ;
+    PrintStream outputStream ;
+    DBAPI dbapi;
+    public ServerThread(Socket socket) throws IOException {
+        try {
+            this.socket = socket;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
     
     public void run () {
@@ -19,32 +30,14 @@ public class ServerThread implements Runnable{
         System.out.println("[ Usluga ]: polaczenia z: " + socket.getInetAddress() + "/" + socket.getPort());
 
         try {
-            BufferedReader inputStream = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            PrintStream outputStream = new PrintStream(socket.getOutputStream());
-            String JsonToClient = "";
+           inputStream = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            outputStream = new PrintStream(socket.getOutputStream());
+            dbapi = new DBAPI();
 
-            // W TY MIEJSCU SERWER ZCZYTUJE ZAPYTANIE TYPU            jsonFromClient =inputStream.readLine();
+            clientCommunication(); // Otwieramy mozliwosc wymieniania informacji z clientem
 
-
-                // wstepnie tylko wyslanie przykladowego obiektu jako json i odczyt jego w kliencie
-            System.out.println("JESTEM PRZED WYSLANIEM DO KLIENTA");
-            Doctors test = new Doctors();
-            Doctors test2 = new Doctors();
-
-            ObjectMapper objectMapper = new ObjectMapper();
-            try {
-                String outToClient = objectMapper.writeValueAsString(test);
-                System.out.println(outToClient);
-                outputStream.println(outToClient);
-
-                String outToClient2 = objectMapper.writeValueAsString(test2);
-                System.out.println(outToClient2);
-                outputStream.println(outToClient2);
-
-            } catch (JsonProcessingException e) {
-                e.printStackTrace();
-            }
-
+            outputStream.close();
+            inputStream.close();
             socket.close();
         }
         catch (Exception e) {
@@ -54,8 +47,20 @@ public class ServerThread implements Runnable{
         System.out.println("* ------ *");
     }
 
-    private String getServerResult(String userCommand, String userParams) {
-        return "dupa";
-    }
+   private void clientCommunication() throws IOException
+   {
+        /* czy sprawdzamy odrazu status accesu? */
+       /*czy szukamy cos na pierwsze spojrzenie? */
+
+       /*petla obslugujaca zapytania */
+       while (true)
+       {
+           try {
+               clientMessage = inputStream.readLine();
+           } finally {
+           }
+       }
+
+   }
 
 }
