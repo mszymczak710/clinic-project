@@ -180,14 +180,7 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
         {
             // jak robimy inserty?
         }
-        public void insertVisit (String jsonFromClient)
-        {
-            // jak robimy inserty?
-        }
-        public void insertVisit (String jsonFromClient)
-        {
-            // jak robimy inserty?
-        }
+
         // delete
         public void deleteVisit (int id)
         {

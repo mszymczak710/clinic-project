@@ -1,7 +1,8 @@
 package database.tables;
 
 import jakarta.persistence.*;
-
+import java.util.Base64;
+import java.util.Base64.*;
 import java.util.Objects;
 
 @Entity
@@ -23,11 +24,14 @@ public class DoctorLoginData {
     }
 
     public String getPassword() {
-        return password;
+        byte[] decodedBytes = Base64.getDecoder().decode(this.password);
+        String decodedString = new String(decodedBytes);
+        return decodedString;
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        String encodedString = Base64.getEncoder().encodeToString(password.getBytes());
+        this.password = encodedString;
     }
 
     @Override

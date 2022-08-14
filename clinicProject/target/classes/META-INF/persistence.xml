@@ -10,6 +10,8 @@
         <class>database.tables.Patients</class>
         <class>database.tables.Prescriptions</class>
         <class>database.tables.Visits</class>
+        <class>database.tables.Doctorlogindata</class>
+        <class>database.tables.PatientLoginData</class>
         <properties>
             <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/clinic"/>
             <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
