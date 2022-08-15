@@ -3,9 +3,7 @@ package database.DBconfig;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import database.tables.Doctors;
-import database.tables.Patients;
-import database.tables.Prescriptions;
+import database.tables.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
@@ -29,7 +27,37 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
     }
 
         // select
-            public String getPatients() throws JsonProcessingException {
+            public String loginAsPatient(int login,String password) throws JsonProcessingException
+            {
+                List<PatientLoginData> patientLoginDataList = entityManager.createQuery(
+                        "SELECT log from PatientLoginData log WHERE log.login = ?1").setParameter(1,login).getResultList();
+                objectMapper = new ObjectMapper();
+
+                for (int i = 0; i < patientLoginDataList.size(); i++) {
+                    if (password == patientLoginDataList.get(i).getPassword())
+                    {
+                        return "LOGGED";
+                    }
+                }
+                return "ERROR";
+
+    }
+            public String loginAsDoctor(int login, String password) throws JsonProcessingException {
+                List<DoctorLoginData> doctorLoginDataList = entityManager.createQuery(
+                        "SELECT log from DoctorLoginData log WHERE log.login = ?1").setParameter(1,login).getResultList();
+                objectMapper = new ObjectMapper();
+
+                for (int i = 0; i < doctorLoginDataList.size(); i++) {
+                    if (password == doctorLoginDataList.get(i).getPassword())
+                    {
+                        return "LOGGED";
+                    }
+                }
+                return "ERROR";
+            }
+
+
+    public String getPatients() throws JsonProcessingException {
                 entityTransaction.begin();
 
                 List<Patients> patientsList = entityManager.createQuery("SELECT p FROM Patients p ").getResultList(); // TWORZY LISTE PATIENTOW
@@ -84,7 +112,7 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
     }
     public String getPrescriptionsBYpatientID(int id) throws JsonProcessingException {
         entityTransaction.begin();
-        List<Prescriptions> prescriptionsList = entityManager.createQuery("SELECT pr from Prescriptions pr WHERE pr.patientId = ?1 ").setParameter(1,id).getResultList();
+        List<Prescriptions> prescriptionsList = entityManager.createQuery("SELECT pr from Prescriptions pr WHERE pr.prescriptionId = ?1 ").setParameter(1,id).getResultList();
         objectMapper = new ObjectMapper();
         entityTransaction.commit();
         return (objectMapper.writeValueAsString(prescriptionsList));
@@ -176,10 +204,19 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
         // update
 
         // insert
-        public void insertVisit (String jsonFromClient)
+        public void insertVisit (Visits visit)
         {
             // jak robimy inserty?
         }
+    public void insertPatient (Patients patient)
+    {
+        // jak robimy inserty?
+    }
+    public void insertPrescription(Prescriptions prescript)
+    {
+
+    }
+
 
         // delete
         public void deleteVisit (int id)
@@ -192,13 +229,11 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
     {
         entityTransaction.begin();
         entityManager.createQuery("DELETE FROM Patients pat WHERE pat.patientId = ?1  ").setParameter(1,id);
+        entityManager.createQuery("DELETE FROM PatientLoginData p WHERE p.login  = ?1  ").setParameter(1,id);
+
         entityTransaction.commit();
     }
 
-    public void clientEXIT ()
-    {
-
-    }
 
 
 }

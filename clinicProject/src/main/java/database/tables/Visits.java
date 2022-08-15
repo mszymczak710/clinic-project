@@ -18,10 +18,7 @@ public class Visits {
     private int visitId;
     @Basic
     @Column(name = "date_of_visit")
-    private Date dateOfVisit;
-    @Basic
-    @Column(name = "time_of_visit")
-    private Time timeOfVisit;
+    private java.sql.Timestamp dateOfVisit;
     @Basic
     @Column(name = "duration_in_minutes")
     private int durationInMinutes;

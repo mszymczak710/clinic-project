@@ -51,17 +51,16 @@ INSERT INTO DoctorLoginData VALUES (654321, 'slonce321');
 
 CREATE TABLE Visits (
 	visit_id INT NOT NULL,
-	date_of_visit DATE NOT NULL,
-	time_of_visit TIME NOT NULL,
-	duration_in_minutes INT NOT NULL,
+	date_of_visit TIMESTAMP NOT NULL,
+	duration_in_minutes INT  NOT NULL,
 	patient_id BIGINT NOT NULL,
 	doctor_id INT NOT NULL,
 	office_number INT NOT NULL UNIQUE,
 	PRIMARY KEY (visit_id)
 );
 
-INSERT INTO Visits VALUES (1, '2022-06-30', '12:00:00', 30, 2, 1, 3);
-INSERT INTO Visits VALUES (2, '2022-06-30', '10:00:00', 45, 4, 2, 2);
+INSERT INTO Visits VALUES (1, '2022-06-30 12:00:00', 30, 2, 1, 3);
+INSERT INTO Visits VALUES (2, '2022-06-30 10:00:00',45 , 4, 2, 2);
 
 CREATE TABLE Offices (
 	office_number INT NOT NULL,
