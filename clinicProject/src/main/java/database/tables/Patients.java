@@ -1,7 +1,9 @@
 package database.tables;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
+import org.json.simple.JSONObject;
 
 import java.sql.Date;
 import java.util.Collection;
@@ -42,8 +44,7 @@ public class Patients {
     @Basic
     @Column(name = "email_address")
     private String emailAddress;
-    @OneToMany(mappedBy = "patientsByPatientId", cascade = CascadeType.MERGE, orphanRemoval = true)
-    private Collection<Prescriptions> prescriptionsByPatientId = new java.util.ArrayList<>();
+
     @OneToMany(mappedBy = "patientsByPatientId", cascade = CascadeType.MERGE, orphanRemoval = true)
     private Collection<Visits> visitsByPatientId = new java.util.ArrayList<>();
 
@@ -140,9 +141,25 @@ public class Patients {
                 ", zipCode='" + zipCode + '\'' +
                 ", phoneNumber=" + phoneNumber +
                 ", emailAddress='" + emailAddress + '\'' +
-                ", prescriptionsByPatientId=" + prescriptionsByPatientId +
                 ", visitsByPatientId=" + visitsByPatientId +
                 '}';
+    }
+    public JSONObject toJSON()
+    {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("patientId",patientId);
+        jsonObject.put("pesel",pesel);
+        jsonObject.put("firstName",firstName);
+        jsonObject.put("lastName",lastName);
+        jsonObject.put("dateOfBirth",dateOfBirth);
+        jsonObject.put("address",address);
+        jsonObject.put("city",city);
+        jsonObject.put("zipCode",zipCode);
+        jsonObject.put("phoneNumber",phoneNumber);
+        jsonObject.put("emailAddress",emailAddress);
+        return jsonObject;
+
+
     }
 
     @Override
@@ -180,13 +197,7 @@ public class Patients {
         return result;
     }
 
-    public Collection<Prescriptions> getPrescriptionsByPatientId() {
-        return prescriptionsByPatientId;
-    }
 
-    public void setPrescriptionsByPatientId(Collection<Prescriptions> prescriptionsByPatientId) {
-        this.prescriptionsByPatientId = prescriptionsByPatientId;
-    }
 
     public Collection<Visits> getVisitsByPatientId() {
         return visitsByPatientId;

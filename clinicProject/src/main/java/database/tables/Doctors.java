@@ -2,6 +2,7 @@ package database.tables;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
+import org.json.simple.JSONObject;
 
 import java.util.Collection;
 
@@ -93,6 +94,17 @@ public class Doctors {
         result = 31 * result + jobExecutionNumber;
         result = 31 * result + (specialization != null ? specialization.hashCode() : 0);
         return result;
+    }
+    public JSONObject toJSON ()
+    {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("doctor_id",doctorId);
+        jsonObject.put("first_name",firstName);
+        jsonObject.put("last_name",lastName);
+        jsonObject.put("job_execution_number",jobExecutionNumber);
+        jsonObject.put("specialization",specialization);
+        return jsonObject;
+
     }
 
     public Collection<Visits> getVisitsByDoctorId() {

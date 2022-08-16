@@ -11,13 +11,13 @@
         <class>database.tables.Prescriptions</class>
         <class>database.tables.Visits</class>
         <class>database.tables.Doctorlogindata</class>
-        <class>database.tables.PatientLoginData</class>
+        <class>database.tables.Patientlogindata</class>
         <properties>
             <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/clinic"/>
             <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
             <property name="hibernate.connection.username" value="postgres"/>
             <property name="hibernate.connection.password" value="1234"/>
-            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.show_sql" value="false" />
         </properties>
     </persistence-unit>
 </persistence>

@@ -2,6 +2,7 @@ package database.tables;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
+import org.json.simple.JSONObject;
 
 import java.sql.Date;
 import java.sql.Time;
@@ -51,21 +52,14 @@ public class Visits {
         this.visitId = visitId;
     }
 
-    public Date getDateOfVisit() {
+    public java.sql.Timestamp getDateOfVisit() {
         return dateOfVisit;
     }
 
-    public void setDateOfVisit(Date dateOfVisit) {
+    public void setDateOfVisit( java.sql.Timestamp dateOfVisit) {
         this.dateOfVisit = dateOfVisit;
     }
 
-    public Time getTimeOfVisit() {
-        return timeOfVisit;
-    }
-
-    public void setTimeOfVisit(Time timeOfVisit) {
-        this.timeOfVisit = timeOfVisit;
-    }
 
     public int getDurationInMinutes() {
         return durationInMinutes;
@@ -112,16 +106,28 @@ public class Visits {
         if (doctorId != that.doctorId) return false;
         if (officeNumber != that.officeNumber) return false;
         if (!Objects.equals(dateOfVisit, that.dateOfVisit)) return false;
-        if (!Objects.equals(timeOfVisit, that.timeOfVisit)) return false;
 
         return true;
     }
+    public JSONObject toJSON()
+    {
+        JSONObject jsonObject = new JSONObject();
 
+        jsonObject.put("visitId",visitId);
+        jsonObject.put("dateOfVisit",dateOfVisit);
+        jsonObject.put("durationInMinutes",durationInMinutes);
+        jsonObject.put("patientId",patientId);
+        jsonObject.put("doctorId",doctorId);
+        jsonObject.put("officeNumber",officeNumber);
+
+        return jsonObject;
+
+
+    }
     @Override
     public int hashCode() {
         int result = visitId;
         result = 31 * result + (dateOfVisit != null ? dateOfVisit.hashCode() : 0);
-        result = 31 * result + (timeOfVisit != null ? timeOfVisit.hashCode() : 0);
         result = 31 * result + durationInMinutes;
         result = 31 * result + patientId;
         result = 31 * result + doctorId;
