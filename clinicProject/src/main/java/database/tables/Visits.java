@@ -44,6 +44,8 @@ public class Visits {
     @JoinColumn(name = "office_number", referencedColumnName = "office_number", nullable = false, insertable = false, updatable = false)
     private Offices officesByOfficeNumber;
 
+
+
     public int getVisitId() {
         return visitId;
     }

@@ -28,36 +28,55 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
     }
 
         // select
-            public String loginAsPatient(int login,String password) throws JsonProcessingException
+            public JSONObject loginAsPatient(int login,String password) throws JsonProcessingException
             {
                 entityTransaction.begin();
                 List<Patientlogindata> patientlogindataList = entityManager.createQuery(
                         "SELECT log from Patientlogindata log WHERE log.login = ?1").setParameter(1,login).getResultList();
                 entityTransaction.commit();
-
+                int tmp=0;
                 for (int i = 0; i < patientlogindataList.size(); i++) {
                     if (password == patientlogindataList.get(i).getPassword())
                     {
-                        return "LOGGED";
+                        int idPatient = patientlogindataList.get(i).getLogin();
+                        tmp=100;
+                        jsonObject= getPatientsByID(idPatient);
                     }
                 }
-                return "ERROR";
+                if (tmp==0)
+                {
+                    JSONObject json = new JSONObject();
+                    json.clear();
+                    json.put("error",1);
+                    jsonObject= json;
+                }
+                return jsonObject;
 
     }
-            public String loginAsDoctor(int login, String password) throws JsonProcessingException {
+            public JSONObject loginAsDoctor(int login, String password) throws JsonProcessingException { // login to execution number
                 entityTransaction.begin();
 
                 List<Doctorlogindata> doctorlogindataList = entityManager.createQuery(
                         "SELECT log from Doctorlogindata log WHERE log.login = ?1").setParameter(1,login).getResultList();
                 entityTransaction.commit();
+                int tmp=0;
 
                 for (int i = 0; i < doctorlogindataList.size(); i++) {
                     if (password == doctorlogindataList.get(i).getPassword())
                     {
-                        return "LOGGED";
+                        tmp=100;
+                        int jobexecnumb = doctorlogindataList.get(i).getLogin();
+                        jsonObject = getDoctorsByJobExecutionnumb(jobexecnumb);
                     }
                 }
-                return "ERROR";
+                if (tmp==0)
+                {
+                    JSONObject json = new JSONObject();
+                    json.clear();
+                    json.put("error",1);
+                    jsonObject= json;
+                }
+                return jsonObject;
             }
 
 
@@ -107,6 +126,19 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
         entityTransaction.begin();
 
         List<Patients> doctorsList = entityManager.createQuery("SELECT d FROM Doctors d  WHERE d.doctorId = ?1").setParameter(1,id).getResultList();
+        entityTransaction.commit();
+
+        JSONObject jsonObject = new JSONObject();
+
+        for (int i = 0; i < doctorsList.size(); i++) {
+            jsonObject.put(Integer.toString(i),doctorsList.get(i).toJSON());
+        }
+        return jsonObject;
+    }
+    public JSONObject getDoctorsByJobExecutionnumb(int id) throws JsonProcessingException {
+        entityTransaction.begin();
+
+        List<Patients> doctorsList = entityManager.createQuery("SELECT d FROM Doctors d  WHERE d.jobExecutionNumber = ?1").setParameter(1,id).getResultList();
         entityTransaction.commit();
 
         JSONObject jsonObject = new JSONObject();
@@ -278,7 +310,50 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
 
 
         // update
+        public void updateVisit (JSONObject jsonObject)
+        {
+            entityTransaction.begin();
+            StringBuilder query = new StringBuilder("UPDATE visits v SET ");
+            if (jsonObject.get("date_of_visit") != null )
+            {
+                query.append("date_of_visit = ");
+                query.append((String) jsonObject.get("date_of_visit"));
+                if (jsonObject.get("duration_in_min") != null || jsonObject.get("patient_id") !=null  || jsonObject.get("doctor_id") != null
+               ||jsonObject.get("office_number") != null  )                     query.append(", ");
 
+            }
+            if (jsonObject.get("duration_in_min") != null )
+            {
+                query.append("duration_in_min = ");
+                query.append((String) jsonObject.get("duration_in_min"));
+                if ( jsonObject.get("patient_id") !=null  || jsonObject.get("doctor_id") != null
+                        ||jsonObject.get("office_number") != null  )   query.append(", ");
+            }
+            if (jsonObject.get("patient_id") != null )
+            {
+                query.append("patient_id = ");
+                query.append((String) jsonObject.get("patient_id"));
+                if (jsonObject.get("doctor_id") != null ||jsonObject.get("office_number") != null  )    query.append(", ");
+            }
+            if (jsonObject.get("doctor_id") != null )
+            {
+                query.append("doctor_id = ");
+                query.append((String) jsonObject.get("doctor_id"));
+                if (jsonObject.get("office_number") != null  )   query.append(", ");
+            }
+            if (jsonObject.get("office_number") != null )
+            {
+                query.append("office_number = ");
+                query.append((String) jsonObject.get("office_number"));
+            }
+            query.append("WHERE visit_id = ");
+            query.append(jsonObject.get("visit_id"));
+            entityManager.createNativeQuery(query.toString()).executeUpdate();
+
+            entityManager.flush();
+            System.out.println( query.toString());
+            entityTransaction.commit();
+        }
         // insert
         public void insertVisit (Visits visit)
         {
