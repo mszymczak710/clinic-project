@@ -53,7 +53,7 @@ CREATE TABLE Visits (
 	visit_id INT NOT NULL,
 	date_of_visit TIMESTAMP NOT NULL,
 	duration_in_minutes INT  NOT NULL,
-	patient_id BIGINT NOT NULL,
+	patient_id INT NOT NULL,
 	doctor_id INT NOT NULL,
 	office_number INT NOT NULL UNIQUE,
 	PRIMARY KEY (visit_id)
@@ -79,7 +79,7 @@ CREATE TABLE Prescriptions (
 	code_of_prescription INT NOT NULL,
 	date_of_issue DATE NOT NULL,
 	expiration_date DATE NOT NULL,
-	visit_id BIGINT NOT NULL,
+	visit_id INT NOT NULL,
 	PRIMARY KEY (prescription_id)
 );
 
