@@ -145,8 +145,32 @@ public class ServerThread implements Runnable {
                             switch (clientMessage) {
                                 case "updateVisit":
                                     updateVisit(jsonObject);
-
-
+                                    break;
+                                case "updatePatient":
+                                    updateVisit(jsonObject);
+                                    break;
+                                case "insertVisit":
+                                    Visits visitTOadd = new Visits();
+                                    visitTOadd.setDateOfVisit();
+                                    // trzeba dodac duzo
+                                    updateVisit(visitTOadd);
+                                    break;
+                                case "insertPatient":
+                                    Patients patientstoadd = new Patients();
+                                    //sety
+                                    insertPatient(patientstoadd);
+                                    break;
+                                case "insertPrescription":
+                                    Prescriptions prToadd = new Prescriptions();
+                                    //sety
+                                    insertPrescription(prToadd);
+                                    break;
+                                case "deletePatient":
+                                    deletePatient(  (int)jsonObject.get("id"););
+                                    break;
+                                case "deleteVisit":
+                                    deleteVisit(  (int)jsonObject.get("id"););
+                                    break;
 
                             }
                     }  else {
@@ -250,6 +274,10 @@ public class ServerThread implements Runnable {
 
     }
     private void deletePatient ( int id)
+    {
+
+    }
+    private void deleteVisit ( int id)
     {
 
     }

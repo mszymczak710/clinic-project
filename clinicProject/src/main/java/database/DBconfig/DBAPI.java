@@ -354,19 +354,91 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
             System.out.println( query.toString());
             entityTransaction.commit();
         }
+    public void updatePatient (JSONObject jsonObject)
+    {
+        entityTransaction.begin();
+        StringBuilder query = new StringBuilder("UPDATE Patient p SET ");
+        if (jsonObject.get("pesel") != null )
+        {
+            query.append("pesel = ");
+            query.append((String) jsonObject.get("pesel"));
+            if (jsonObject.get("first_name") != null || jsonObject.get("last_name") !=null  || jsonObject.get("date_of_birth") != null
+                    ||jsonObject.get("address") != null ||jsonObject.get("city") != null||jsonObject.get("phone_number") != null ||jsonObject.get(" email_address ") != null )   query.append(", ");
+
+        }
+        if (jsonObject.get("first_name") != null )
+        {
+            query.append("first_name = ");
+            query.append((String) jsonObject.get("first_name"));
+            if ( jsonObject.get("last_name") !=null  || jsonObject.get("date_of_birth") != null
+                    ||jsonObject.get("address") != null ||jsonObject.get("city") != null||jsonObject.get("phone_number") != null ||jsonObject.get(" email_address ") != null )   query.append(", ");
+        }
+        if (jsonObject.get("last_name") != null )
+        {
+            query.append("last_name = ");
+            query.append((String) jsonObject.get("last_name"));
+            if (  jsonObject.get("date_of_birth") != null ||jsonObject.get("address") != null ||jsonObject.get("city") != null||jsonObject.get("phone_number") != null ||jsonObject.get(" email_address ") != null )   query.append(", ");
+        }
+        if (jsonObject.get("date_of_birth") != null )
+        {
+            query.append("date_of_birth = ");
+            query.append((String) jsonObject.get("date_of_birth"));
+            if (jsonObject.get("address") != null ||jsonObject.get("city") != null||jsonObject.get("phone_number") != null ||jsonObject.get(" email_address ") != null )   query.append(", ");              }
+        if (jsonObject.get("address") != null )
+        {
+            query.append("address = ");
+            query.append((String) jsonObject.get("address"));
+            if (jsonObject.get("city") != null||jsonObject.get("phone_number") != null ||jsonObject.get(" email_address ") != null )   query.append(", ");
+        }
+        if (jsonObject.get("city") != null )
+        {
+            query.append("city = ");
+            query.append((String) jsonObject.get("city"));
+            if (jsonObject.get("phone_number") != null ||jsonObject.get(" email_address ") != null )   query.append(", ");
+
+        }
+        if (jsonObject.get("phone_number") != null )
+        {
+            query.append("phone_number = ");
+            query.append((String) jsonObject.get("phone_number"));
+            if (jsonObject.get(" email_address ") != null )   query.append(", ");
+
+        }
+        if (jsonObject.get("email_address") != null )
+        {
+            query.append("email_address = ");
+            query.append((String) jsonObject.get("email_address"));
+        }
+        query.append("WHERE patient_id = ");
+        query.append(jsonObject.get("patient_id"));
+        entityManager.createNativeQuery(query.toString()).executeUpdate();
+
+        entityManager.flush();
+        System.out.println( query.toString());
+        entityTransaction.commit();
+    }
         // insert
         public void insertVisit (Visits visit)
         {
-            // jak robimy inserty?
+            entityTransaction.begin();
+            System.out.println(visit.toString());
+            entityManager.merge(visit);
+            entityTransaction.commit();
         }
-    public void insertPatient (Patients patient)
-    {
-        // jak robimy inserty?
-    }
-    public void insertPrescription(Prescriptions prescript)
-    {
-
-    }
+        public void insertPatient (Patients patient)
+        {
+            entityTransaction.begin();
+            System.out.println(patient.toString());
+            entityManager.merge(patient);
+            entityTransaction.commit();
+        }
+        public void insertPrescription(Prescriptions prescript)
+        {
+            entityTransaction.begin();
+            System.out.println(prescript.toString());
+            entityManager.merge(prescript);
+            entityTransaction.commit();
+        }
 
 
         // delete
