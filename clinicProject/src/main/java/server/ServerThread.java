@@ -61,12 +61,20 @@ public class ServerThread implements Runnable {
 
         /*petla obslugujaca zapytania z klienta*/
         while (true) {
+
+
+            if (jsonObject.get("command").equals("break"))
+            {
+                dbapi.close();
+                break;
+            }
+
+
             if (accesslevel == 0) // logowanie
             {
                 clientMessage = inputStream.readUTF();
                 jsonObject = (JSONObject) JSONValue.parse(clientMessage);
 
-                if (jsonObject.get("command").equals("break")) break;
                 JSONObject jsonObject2 = new JSONObject();
 
                 if (jsonObject.get("usertype").equals("doc")) {

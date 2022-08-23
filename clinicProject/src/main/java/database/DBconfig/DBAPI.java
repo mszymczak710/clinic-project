@@ -458,7 +458,15 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
 
         entityTransaction.commit();
     }
+    public void close()
+    {
 
+        if (entityTransaction.isActive()) {
+            entityTransaction.rollback();
+        }
+        entityManager.close();
+        entityManagerFactory.close();
+    }
 
 
 }
