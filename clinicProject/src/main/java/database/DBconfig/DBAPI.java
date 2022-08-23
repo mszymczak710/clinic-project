@@ -19,11 +19,11 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
     EntityManager entityManager;
     EntityTransaction entityTransaction;
     JSONObject jsonObject ;
-    int permissions=0; //0 brak  1 pacjent 2 lekarz
+
     public DBAPI() {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
-        EntityManager  entityManager = entityManagerFactory.createEntityManager();
-        EntityTransaction entityTransaction= entityManager.getTransaction();
+        entityManagerFactory = Persistence.createEntityManagerFactory("default");
+        entityManager = entityManagerFactory.createEntityManager();
+        entityTransaction= entityManager.getTransaction();
 
     }
 
@@ -53,7 +53,7 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
                 return jsonObject;
 
     }
-            public JSONObject loginAsDoctor(int login, String password) throws JsonProcessingException { // login to execution number
+            public JSONObject loginAsDoctor(int login, String password){ // login to execution number
                 entityTransaction.begin();
 
                 List<Doctorlogindata> doctorlogindataList = entityManager.createQuery(
@@ -80,7 +80,7 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
             }
 
 
-    public JSONObject getPatients() throws JsonProcessingException {
+    public JSONObject getPatients(){
                 entityTransaction.begin();
 
                 List<Patients> patientsList = entityManager.createQuery("SELECT p FROM Patients p ").getResultList(); // TWORZY LISTE PATIENTOW
@@ -93,7 +93,7 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
                 return jsonObject;
         }
 
-            public JSONObject getPatientsByID(int id) throws JsonProcessingException {
+            public JSONObject getPatientsByID(int id){
                 entityTransaction.begin();
 
                 List<Patients> patientsList = entityManager.createQuery("SELECT p from Patients p where p.patientId = ?1").setParameter(1,id).getResultList();
@@ -108,7 +108,7 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
             return jsonObject;
         }
 
-    public JSONObject getDoctors() throws JsonProcessingException {
+    public JSONObject getDoctors()  {
         entityTransaction.begin();
 
         List<Doctors> doctorsList = entityManager.createQuery("SELECT d FROM Doctors d ").getResultList();
@@ -122,7 +122,7 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
         return jsonObject;
     }
 
-    public JSONObject getDoctorsByID(int id) throws JsonProcessingException {
+    public JSONObject getDoctorsByID(int id) {
         entityTransaction.begin();
 
         List<Patients> doctorsList = entityManager.createQuery("SELECT d FROM Doctors d  WHERE d.doctorId = ?1").setParameter(1,id).getResultList();
@@ -135,7 +135,7 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
         }
         return jsonObject;
     }
-    public JSONObject getDoctorsByJobExecutionnumb(int id) throws JsonProcessingException {
+    public JSONObject getDoctorsByJobExecutionnumb(int id) {
         entityTransaction.begin();
 
         List<Patients> doctorsList = entityManager.createQuery("SELECT d FROM Doctors d  WHERE d.jobExecutionNumber = ?1").setParameter(1,id).getResultList();
@@ -149,7 +149,7 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
         return jsonObject;
     }
 
-    public JSONObject getPrescriptions() throws JsonProcessingException {
+    public JSONObject getPrescriptions(){
         entityTransaction.begin();
         List<Prescriptions> prescriptionsList = entityManager.createQuery("SELECT pr from Prescriptions pr ").getResultList();
         entityTransaction.commit();
@@ -161,7 +161,7 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
         }
         return jsonObject;
     }
-    public JSONObject getPrescriptionsBYprescID(int id) throws JsonProcessingException {
+    public JSONObject getPrescriptionsBYprescID(int id){
         entityTransaction.begin();
         List<Prescriptions> prescriptionsList = entityManager.createQuery("SELECT pr from Prescriptions pr WHERE pr.prescriptionId = ?1").setParameter(1,id).getResultList();
         JSONObject jsonObject = new JSONObject();
@@ -171,7 +171,7 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
         }
         return jsonObject;
     }
-    public JSONObject getPrescriptionsBYpatientID(int id) throws JsonProcessingException {
+    public JSONObject getPrescriptionsBYpatientID(int id){
         entityTransaction.begin();
         List<Prescriptions> prescriptionsList = entityManager.createQuery("SELECT pr from Prescriptions pr WHERE pr.prescriptionId = ?1 ").setParameter(1,id).getResultList();
         JSONObject jsonObject = new JSONObject();
@@ -181,7 +181,7 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
         }
         return jsonObject;
     }
-    public JSONObject getPrescriptionsBYvisitID(int id) throws JsonProcessingException {
+    public JSONObject getPrescriptionsBYvisitID(int id){
         entityTransaction.begin();
         List<Prescriptions> prescriptionsList = entityManager.createQuery("SELECT pr from Prescriptions pr WHERE pr.visitId = ?1").setParameter(1,id).getResultList();
         JSONObject jsonObject = new JSONObject();
@@ -191,7 +191,7 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
         }
         return jsonObject;
     }
-    public JSONObject getPrescriptionsBYDate(Date date) throws JsonProcessingException {
+    public JSONObject getPrescriptionsBYDate(Date date){
         entityTransaction.begin();
         List<Prescriptions> prescriptionsList = entityManager.createQuery("SELECT pr from Prescriptions pr WHERE pr.dateOfIssue = ?1").setParameter(1,date.toString()).getResultList();
 
@@ -203,7 +203,7 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
         return jsonObject;
     }
 
-    public JSONObject getOffices () throws JsonProcessingException
+    public JSONObject getOffices ()
     {
         entityTransaction.begin();
         List<Offices> officesList = entityManager.createQuery("SELECT o from Offices o ").getResultList();
@@ -215,7 +215,7 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
         return jsonObject;
     }
 
-    public JSONObject getOfficesBYid (int id) throws JsonProcessingException
+    public JSONObject getOfficesBYid (int id)
     {
         entityTransaction.begin();
         List<Prescriptions> officesList = entityManager.createQuery("SELECT o from Offices o WHERE o.officeNumber = ?1").setParameter(1,id).getResultList();
@@ -226,7 +226,7 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
         }
         return jsonObject;
     }
-  /*  public JSONobject getOfficesBydate_freeoffices (int id) throws JsonProcessingException do zrobienia
+  /*  public JSONobject getOfficesBydate_freeoffices (int id)do zrobienia
     {
         entityTransaction.begin();
         List<Prescriptions> officesList = entityManager.createQuery("SELECT o from Offices o WHERE o.officeNumber = ?1").setParameter(1,id).getResultList();
@@ -265,7 +265,7 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
         }
         return jsonObject;
     }
-    public JSONObject getVisitsBYvisID (int id) throws JsonProcessingException
+    public JSONObject getVisitsBYvisID (int id)
     {
         entityTransaction.begin();
         List<Prescriptions> visitsList = entityManager.createQuery("SELECT vis from Visits vis WHERE vis.visitId = ?1").setParameter(1,id).getResultList();
@@ -279,7 +279,7 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
         }
         return jsonObject;
     }
-    public JSONObject getVisitsBYdocID (int id) throws JsonProcessingException
+    public JSONObject getVisitsBYdocID (int id)
     {
         entityTransaction.begin();
         List<Prescriptions> visitsList = entityManager.createQuery("SELECT vis from Visits vis WHERE vis.doctorId = ?1").setParameter(1,id).getResultList();
@@ -293,7 +293,7 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
         }
         return jsonObject;
     }
-    public JSONObject getVisitsBYpatID (int id) throws JsonProcessingException
+    public JSONObject getVisitsBYpatID (int id)
     {
         entityTransaction.begin();
         List<Prescriptions> visitsList = entityManager.createQuery("SELECT vis from Visits vis WHERE vis.patientId = ?1").setParameter(1,id).getResultList();
@@ -425,11 +425,13 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
             entityManager.merge(visit);
             entityTransaction.commit();
         }
-        public void insertPatient (Patients patient)
+        public void insertPatient (Patients patient, Patientlogindata patientlogindata)
         {
             entityTransaction.begin();
             System.out.println(patient.toString());
+            System.out.println(patientlogindata.toString());
             entityManager.merge(patient);
+            entityManager.merge(patientlogindata);
             entityTransaction.commit();
         }
         public void insertPrescription(Prescriptions prescript)
