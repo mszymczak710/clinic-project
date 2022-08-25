@@ -189,7 +189,12 @@ public class ServerThread implements Runnable {
                                     prToadd.setDescription((String) jsonObject.get("description"));
                                     prToadd.setCodeOfPrescription((int)jsonObject.get("codeOfPrescriptiion"));
                                     prToadd.setDateOfIssue((Date) jsonObject.get("dateOfIssue"));
+
                                     prToadd.setExpirationDate((Date) jsonObject.get("expirationDate"));
+
+                                    Date date = getVisitsBYvisID2(prToadd.getVisitId());
+                                    date.setMonth(date.getMonth()+2);
+                                    prToadd.setExpirationDate(date);
                                     insertPrescription(prToadd);
                                     break;
                                 case "deletePatient":
@@ -362,6 +367,15 @@ public class ServerThread implements Runnable {
         } catch (IOException e) {
             System.out.println("error outputstrean.writeUTF");
         }
+    }
+    private Date getVisitsBYvisID2 ( int id)
+    {
+        jsonObject.clear();
+        jsonObject = dbapi.getVisitsBYvisID(id);
+
+           Date date;
+           date = (Date) jsonObject.get("DateOfissue");
+        return date;
     }
     private void getVisitsBYdocID ( int id)
     {

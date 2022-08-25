@@ -144,6 +144,9 @@ public class Patients {
                 ", visitsByPatientId=" + visitsByPatientId +
                 '}';
     }
+
+
+
     public JSONObject toJSON()
     {
         JSONObject jsonObject = new JSONObject();
