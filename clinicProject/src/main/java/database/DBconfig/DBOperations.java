@@ -7,8 +7,10 @@ import java.sql.Date;
 
 public class DBOperations {
 
-
-    public void PatientInsertOperation() {
+    public static void main(String[] args) {
+        PatientInsertOperation();
+    }
+    public static void PatientInsertOperation() {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
         EntityManager  entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction entityTransaction= entityManager.getTransaction();
@@ -22,7 +24,8 @@ public class DBOperations {
 
             Patients patient = new Patients();
             System.out.println(patient.toString());
-            patient.setFirstName("michal");
+            patient.setPatientId(30);
+            patient.setFirstName("XDXDXD");
             patient.setLastName("Probierz");
             patient.setDateOfBirth(dateOfBirth);
             patient.setZipCode("100-13");

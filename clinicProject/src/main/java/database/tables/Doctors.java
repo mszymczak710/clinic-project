@@ -95,6 +95,16 @@ public class Doctors {
         result = 31 * result + (specialization != null ? specialization.hashCode() : 0);
         return result;
     }
+
+    public Doctors() {
+    }
+    public Doctors(JSONObject jsonObject) {
+        this.doctorId = (int) jsonObject.get("doctor_id");
+        this.firstName = (String) jsonObject.get("first_name");
+        this.lastName = (String) jsonObject.get("last_name");
+        this.jobExecutionNumber = (int) jsonObject.get("job_execution_number");
+        this.specialization = (String) jsonObject.get("specialization");
+    }
     public JSONObject toJSON ()
     {
         JSONObject jsonObject = new JSONObject();

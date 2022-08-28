@@ -3,6 +3,7 @@ package database.tables;
 import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.json.simple.JSONObject;
+import server.JsonDemo;
 
 import java.util.Collection;
 import java.util.Objects;
@@ -55,6 +56,13 @@ public class Offices {
         int result = officeNumber;
         result = 31 * result + (typeOfOffice != null ? typeOfOffice.hashCode() : 0);
         return result;
+    }
+
+    public Offices() {
+    }
+    public Offices(JSONObject jsonObject) {
+        this.officeNumber = (int) jsonObject.get("officeNumber");
+        this.typeOfOffice = (String) jsonObject.get("typeOfOffice");
     }
 
     public JSONObject toJSON()

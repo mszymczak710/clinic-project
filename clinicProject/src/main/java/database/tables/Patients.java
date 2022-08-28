@@ -48,6 +48,10 @@ public class Patients {
     @OneToMany(mappedBy = "patientsByPatientId", cascade = CascadeType.MERGE, orphanRemoval = true)
     private Collection<Visits> visitsByPatientId = new java.util.ArrayList<>();
 
+    public Patients() {
+
+    }
+
     public int getPatientId() {
         return patientId;
     }
@@ -146,6 +150,19 @@ public class Patients {
     }
 
 
+    public Patients(JSONObject jsonObject)
+    {
+        this.patientId = (int) jsonObject.get("patientId");
+        this.pesel= (String) jsonObject.get("pesel");
+        this.firstName = (String) jsonObject.get("patientId");
+        this.lastName= (String) jsonObject.get("lastName");
+        this.dateOfBirth = (Date) jsonObject.get("dateOfBirth");
+        this.address= (String) jsonObject.get("address");
+        this.city = (String) jsonObject.get("city");
+        this.zipCode= (String) jsonObject.get("zipCode");
+        this.phoneNumber = (String) jsonObject.get("phoneNumber");
+        this.emailAddress= (String) jsonObject.get("emailAddress");
+    }
 
     public JSONObject toJSON()
     {

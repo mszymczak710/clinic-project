@@ -3,6 +3,7 @@ package database.tables;
 import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.json.simple.JSONObject;
+import server.JsonDemo;
 
 import java.sql.Date;
 import java.util.Objects;
@@ -112,6 +113,17 @@ public class Prescriptions {
         result = 31 * result + (expirationDate != null ? expirationDate.hashCode() : 0);
         result = 31 * result + visitId;
         return result;
+    }
+
+    public Prescriptions() {
+    }
+    public Prescriptions(JSONObject jsonObject) {
+        this.prescriptionId = (int) jsonObject.get("prescriptionId");
+        this.description = (String) jsonObject.get("description");
+        this.codeOfPrescription = (int) jsonObject.get("codeOfPrescription");
+        this.dateOfIssue = (Date) jsonObject.get("dateOfIssue");
+        this.expirationDate = (Date) jsonObject.get("expirationDate");
+        this.visitId = (int) jsonObject.get("visitId");
     }
     public JSONObject toJSON()
     {

@@ -6,6 +6,7 @@ import org.json.simple.JSONObject;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -111,6 +112,19 @@ public class Visits {
 
         return true;
     }
+
+    public Visits() {
+    }
+    public Visits(JSONObject jsonObject) {
+        this.visitId = (int) jsonObject.get("visitId");
+        this.dateOfVisit = (Timestamp) jsonObject.get("dateOfVisit");
+        this.durationInMinutes = (int) jsonObject.get("durationInMinutes");
+        this.patientId = (int) jsonObject.get("patientId");
+        this.doctorId = (int) jsonObject.get("doctorId");
+        this.officeNumber = (int) jsonObject.get("officeNumber");
+
+    }
+
     public JSONObject toJSON()
     {
         JSONObject jsonObject = new JSONObject();

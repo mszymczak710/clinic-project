@@ -93,6 +93,19 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
                 return jsonObject;
         }
 
+        public int getPatientIDnewlycreated (String mail, String telephone)
+    {
+        entityTransaction.begin();
+        JSONObject jsonObject = new JSONObject();
+
+       List<Patients> resultList =  entityManager.createQuery("select  p from Patients p WHERE p.emailAddress LIKE ?1 and p.phoneNumber LIKE ?2 ORDER BY p.patientId DESC  ").setParameter(1,mail).setParameter(2,telephone).getResultList();
+        entityTransaction.commit();
+        for (int i = 0; i < resultList.size(); i++) {
+            jsonObject.put(Integer.toString(i),resultList.get(i).toJSON());
+        }
+        return (int) ((JSONObject) jsonObject.get("0")).get("patientId");
+    }
+
             public JSONObject getPatientsByID(int id){
                 entityTransaction.begin();
 

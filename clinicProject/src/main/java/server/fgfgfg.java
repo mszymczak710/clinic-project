@@ -3,6 +3,7 @@ package server;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import database.DBconfig.DBAPI;
 import database.tables.Patients;
 import database.tables.Prescriptions;
 import database.tables.Visits;
@@ -17,6 +18,7 @@ import java.util.List;
 public class fgfgfg {
 
     public static void main(String[] args) {
+        /*
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction entityTransaction= entityManager.getTransaction();
@@ -35,8 +37,11 @@ public class fgfgfg {
         System.out.println("to string    "+jsonObject.toString());
 
             System.out.println(jsonObject.toJSONString());
+*/
 
 
+        DBAPI dbapi = new DBAPI();
+        System.out.println(dbapi.getPatientIDnewlycreated("www@hhhhhhhhhhhhhhxd.pl","441241244"));
     }
 
 }

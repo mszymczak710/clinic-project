@@ -8,6 +8,7 @@ import java.io.*;
 import java.net.Socket;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.concurrent.TimeUnit;
 
 
 import org.json.simple.JSONObject;
@@ -155,7 +156,7 @@ public class ServerThread implements Runnable {
                                     break;
                                 case "insertVisit":
                                     Visits visitTOadd = new Visits();
-
+                                    visitTOadd.setVisitId(0);
                                     visitTOadd.setDateOfVisit((Timestamp) jsonObject.get("dateOfVisit"));
                                     visitTOadd.setDurationInMinutes((int)jsonObject.get("durationInMinutes"));
                                     visitTOadd.setPatientId((int)jsonObject.get("patientId"));
@@ -169,6 +170,7 @@ public class ServerThread implements Runnable {
                                     Patientlogindata patientlogindata = new Patientlogindata();
 
                                     if (jsonObject.get("pesel")!= null ) patientstoadd.setPesel((String)jsonObject.get("pesel"));
+                                    patientstoadd.setPatientId(0);
                                     patientstoadd.setFirstName((String) jsonObject.get("firstName"));
                                     patientstoadd.setLastName((String) jsonObject.get("lastName"));
                                     patientstoadd.setDateOfBirth((Date)jsonObject.get("dateOfBirth"));
@@ -178,13 +180,23 @@ public class ServerThread implements Runnable {
                                     patientstoadd.setPhoneNumber((String) jsonObject.get("phoneNumber"));
                                     patientstoadd.setEmailAddress((String) jsonObject.get("emailAddress"));
 
-                                    patientlogindata.setLogin(patientstoadd.getPatientId());
+                                    insertPatient(patientstoadd,patientlogindata);
+                                    int Patid;
+                                    try
+                                    {
+                                        Patid = dbapi.getPatientIDnewlycreated(patientstoadd.getEmailAddress(),patientstoadd.getPhoneNumber());
+                                    } catch (Exception e)
+                                    {
+                                        TimeUnit.SECONDS.sleep(10);
+                                        Patid = dbapi.getPatientIDnewlycreated(patientstoadd.getEmailAddress(),patientstoadd.getPhoneNumber());
+                                    }
+                                    patientlogindata.setLogin(Patid);
                                     patientlogindata.setPassword((String) jsonObject.get("password"));
 
-                                    insertPatient(patientstoadd,patientlogindata);
                                     break;
                                 case "insertPrescription":
                                     Prescriptions prToadd = new Prescriptions();
+                                    prToadd.setPrescriptionId(0);
                                     prToadd.setVisitId((int)jsonObject.get("visitId"));
                                     prToadd.setDescription((String) jsonObject.get("description"));
                                     prToadd.setCodeOfPrescription((int)jsonObject.get("codeOfPrescriptiion"));
