@@ -19,7 +19,7 @@ public class ClientAPI {
     static DataInputStream inputStream;
     static DataOutputStream outputStream;
     static  String userName="";
-    static int IDuser=-1;
+    public static int IDuser=-1;
     static int levelAccess=0; // 0 nzal 1 pat 2 lekarz
 
     public ClientAPI() {
@@ -76,7 +76,7 @@ public class ClientAPI {
 
     }
 
-    private void exit ()
+     void exit ()
     {
         jsonObject.clear();
         jsonObject.put("command","break");
@@ -88,7 +88,7 @@ public class ClientAPI {
 
 
     }
-    private static List<Patients> getPatients()
+     static List<Patients> getPatients()
     {
         jsonObject.clear();
         jsonObject.put("command", "getPatients");
@@ -116,7 +116,7 @@ public class ClientAPI {
         }
 
     }
-    private static List<Patients> getPatientsByID(int id)
+     static List<Patients> getPatientsByID(int id)
     {
         jsonObject.clear();
         jsonObject.put("command", "getPatientsByID");
@@ -144,7 +144,7 @@ public class ClientAPI {
             return new ArrayList<Patients>();
         }
     }
-    private static List<Doctors> getDoctors()
+     static List<Doctors> getDoctors()
     {
         jsonObject.clear();
         jsonObject.put("command", "getDoctors");
@@ -171,7 +171,7 @@ public class ClientAPI {
             return new ArrayList<Doctors>();
         }
     }
-    private static List<Doctors> getDoctorsByID(int id)
+     static List<Doctors> getDoctorsByID(int id)
     {
         jsonObject.clear();
         jsonObject.put("command", "getDoctorsByID");
@@ -199,7 +199,7 @@ public class ClientAPI {
             return new ArrayList<Doctors>();
         }
     }
-    private static List<Doctors> getDoctorsByJobExcutionnumb(int id)
+     static List<Doctors> getDoctorsByJobExcutionnumb(int id)
     {
         jsonObject.clear();
         jsonObject.put("command", "getDoctorsByJobExcutionnumb");
@@ -227,7 +227,7 @@ public class ClientAPI {
             return new ArrayList<Doctors>();
         }
     }
-    private static List<Prescriptions> getPrescriptions()
+     static List<Prescriptions> getPrescriptions()
     {
         jsonObject.clear();
         jsonObject.put("command", "getPrescriptions");
@@ -254,7 +254,7 @@ public class ClientAPI {
             return new ArrayList<Prescriptions>();
         }
     }
-    private static List<Prescriptions>  getPrescriptionsBYprescID(int id)
+     static List<Prescriptions>  getPrescriptionsBYprescID(int id)
     {
         jsonObject.clear();
         jsonObject.put("command", "getPrescriptionsBYprescID");
@@ -282,7 +282,7 @@ public class ClientAPI {
             return new ArrayList<Prescriptions>();
         }
     }
-    private static List<Prescriptions>  getPrescriptionsBYpatientID(int id)
+     static List<Prescriptions>  getPrescriptionsBYpatientID(int id)
     {
         jsonObject.clear();
         jsonObject.put("command", "getPrescriptionsBYpatientID");
@@ -310,7 +310,7 @@ public class ClientAPI {
             return new ArrayList<Prescriptions>();
         }
     }
-    private static List<Prescriptions>   getPrescriptionsBYvisitID(int id)
+     static List<Prescriptions>   getPrescriptionsBYvisitID(int id)
     {
         jsonObject.clear();
         jsonObject.put("command", "getPrescriptionsBYvisitID");
@@ -338,7 +338,7 @@ public class ClientAPI {
             return new ArrayList<Prescriptions>();
         }
     }
-    private static List<Prescriptions>   getPrescriptionsBYDate(Date date)
+     static List<Prescriptions>   getPrescriptionsBYDate(Date date)
     {
         jsonObject.clear();
         jsonObject.put("command", "getPrescriptionsBYprescID");
@@ -448,7 +448,7 @@ public class ClientAPI {
             return new ArrayList<Visits>();
         }
     }
-    private static List<Visits> getVisitsBYvisID(int id)
+     static List<Visits> getVisitsBYvisID(int id)
     {
         jsonObject.clear();
         jsonObject.put("command", "getVisitsBYvisID");
@@ -476,7 +476,7 @@ public class ClientAPI {
             return new ArrayList<Visits>();
         }
     }
-    private static List<Visits> getVisitsBYdocID(int id)
+     static List<Visits> getVisitsBYdocID(int id)
     {
         jsonObject.clear();
         jsonObject.put("command", "getVisitsBydocID");
@@ -505,7 +505,7 @@ public class ClientAPI {
             return new ArrayList<Visits>();
         }
     }
-    private static List<Visits> getVisitsBYpatID(int id)
+     static List<Visits> getVisitsBYpatID(int id)
     {
         jsonObject.clear();
         jsonObject.put("command", "getVisitsBYpatID");
@@ -534,7 +534,7 @@ public class ClientAPI {
             return new ArrayList<Visits>();
         }
     }
-    private static void insertPatient (String pesel, String firstName, String lastName, java.sql.Date dateOfBirth, String address, String city, String zipCode, String phoneNumber, String emailAddress, String Password )
+     static void insertPatient (String pesel, String firstName, String lastName, java.sql.Date dateOfBirth, String address, String city, String zipCode, String phoneNumber, String emailAddress, String Password )
     {
         jsonObject.clear();
 

@@ -1,5 +1,7 @@
 package gui;
 
+import database.tables.Visits;
+import gui.ClientAPI;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,6 +12,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 public class PatientController {
 
@@ -56,6 +60,12 @@ public class PatientController {
         stage.initOwner(myVisits.getScene().getWindow());
         stage.setScene(scene);
         stage.show();
+        ClientAPI clientAPI = new ClientAPI();
+         List<Visits> list = clientAPI.getVisitsBYpatID(ClientAPI.IDuser);
+
+        for(int i = 0; i < list.size(); i++){
+              System.out.println(Arrays.toString(list.toArray()));
+        }
     }
 
     @FXML
