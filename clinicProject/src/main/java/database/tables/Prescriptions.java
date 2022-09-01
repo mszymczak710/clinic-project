@@ -118,12 +118,12 @@ public class Prescriptions {
     public Prescriptions() {
     }
     public Prescriptions(JSONObject jsonObject) {
-        this.prescriptionId = (int) jsonObject.get("prescriptionId");
+        this.prescriptionId = Integer.parseInt( jsonObject.get("prescriptionId").toString());
         this.description = (String) jsonObject.get("description");
-        this.codeOfPrescription = (int) jsonObject.get("codeOfPrescription");
-        this.dateOfIssue = (Date) jsonObject.get("dateOfIssue");
-        this.expirationDate = (Date) jsonObject.get("expirationDate");
-        this.visitId = (int) jsonObject.get("visitId");
+        this.codeOfPrescription = Integer.parseInt( jsonObject.get("codeOfPrescription").toString());
+        this.dateOfIssue = Date.valueOf( jsonObject.get("dateOfIssue").toString());
+        this.expirationDate = Date.valueOf( jsonObject.get("expirationDate").toString());
+        this.visitId = Integer.parseInt( jsonObject.get("visitId").toString());
     }
     public JSONObject toJSON()
     {
@@ -131,8 +131,8 @@ public class Prescriptions {
        jsonObject.put("prescriptionId",prescriptionId);
         jsonObject.put("description",description);
         jsonObject.put("codeOfPrescription",codeOfPrescription);
-        jsonObject.put("dateOfIssue",dateOfIssue);
-        jsonObject.put("expirationDate",expirationDate);
+        jsonObject.put("dateOfIssue",dateOfIssue.toString());
+        jsonObject.put("expirationDate",expirationDate.toString());
         jsonObject.put("visitId",visitId);
         return jsonObject;
 

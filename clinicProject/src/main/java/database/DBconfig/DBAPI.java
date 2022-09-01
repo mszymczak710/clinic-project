@@ -47,6 +47,8 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
             json.put("error",1);
             jsonObject= json;
         }
+        entityManager.flush();
+
         return jsonObject;
 
     }
@@ -54,7 +56,7 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
         entityTransaction.begin();
 
         List<Doctorlogindata> doctorlogindataList = entityManager.createQuery(
-                "SELECT log from DoctorLoginData log WHERE log.login = ?1").setParameter(1,login).getResultList();
+                "SELECT log from Doctorlogindata log WHERE log.login = ?1").setParameter(1,login).getResultList();
         entityTransaction.commit();
         int tmp=0;
 
@@ -73,6 +75,8 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
             json.put("error",1);
             jsonObject= json;
         }
+        entityManager.flush();
+
         return jsonObject;
     }
 
@@ -87,6 +91,8 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
         for (int i = 0; i < patientsList.size(); i++) {
             jsonObject.put(Integer.toString(i),patientsList.get(i).toJSON());
         }
+        entityManager.flush();
+
         return jsonObject;
     }
 
@@ -100,7 +106,9 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
         for (int i = 0; i < resultList.size(); i++) {
             jsonObject.put(Integer.toString(i),resultList.get(i).toJSON());
         }
-        return (int) ((JSONObject) jsonObject.get("0")).get("patientId");
+        entityManager.flush();
+
+        return Integer.parseInt (( (JSONObject) jsonObject.get("0")).get("patientId").toString() );
     }
 
     public JSONObject getPatientsByID(int id){
@@ -115,6 +123,8 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
         for (int i = 0; i < patientsList.size(); i++) {
             jsonObject.put(Integer.toString(i),patientsList.get(i).toJSON());
         }
+        entityManager.flush();
+
         return jsonObject;
     }
 
@@ -129,6 +139,8 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
         for (int i = 0; i < doctorsList.size(); i++) {
             jsonObject.put(Integer.toString(i),doctorsList.get(i).toJSON());
         }
+        entityManager.flush();
+
         return jsonObject;
     }
 
@@ -143,6 +155,8 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
         for (int i = 0; i < doctorsList.size(); i++) {
             jsonObject.put(Integer.toString(i),doctorsList.get(i).toJSON());
         }
+        entityManager.flush();
+
         return jsonObject;
     }
     public JSONObject getDoctorsByJobExecutionnumb(int id) {
@@ -156,6 +170,8 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
         for (int i = 0; i < doctorsList.size(); i++) {
             jsonObject.put(Integer.toString(i),doctorsList.get(i).toJSON());
         }
+        entityManager.flush();
+
         return jsonObject;
     }
 
@@ -169,6 +185,8 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
         for (int i = 0; i < prescriptionsList.size(); i++) {
             jsonObject.put(Integer.toString(i),prescriptionsList.get(i).toJSON());
         }
+        entityManager.flush();
+
         return jsonObject;
     }
     public JSONObject getPrescriptionsBYprescID(int id){
@@ -179,6 +197,8 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
         for (int i = 0; i < prescriptionsList.size(); i++) {
             jsonObject.put(Integer.toString(i),prescriptionsList.get(i).toJSON());
         }
+        entityManager.flush();
+
         return jsonObject;
     }
     public JSONObject getPrescriptionsBYpatientID(int id){
@@ -189,6 +209,8 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
         for (int i = 0; i < prescriptionsList.size(); i++) {
             jsonObject.put(Integer.toString(i),prescriptionsList.get(i).toJSON());
         }
+        entityManager.flush();
+
         return jsonObject;
     }
     public JSONObject getPrescriptionsBYvisitID(int id){
@@ -199,6 +221,8 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
         for (int i = 0; i < prescriptionsList.size(); i++) {
             jsonObject.put(Integer.toString(i),prescriptionsList.get(i).toJSON());
         }
+        entityManager.flush();
+
         return jsonObject;
     }
     public JSONObject getPrescriptionsBYDate(Date date){
@@ -210,6 +234,8 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
         for (int i = 0; i < prescriptionsList.size(); i++) {
             jsonObject.put(Integer.toString(i),prescriptionsList.get(i).toJSON());
         }
+        entityManager.flush();
+
         return jsonObject;
     }
 
@@ -228,36 +254,17 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
     public JSONObject getOfficesBYid (int id)
     {
         entityTransaction.begin();
-        List<Prescriptions> officesList = entityManager.createQuery("SELECT o from Offices o WHERE o.officeNumber = ?1").setParameter(1,id).getResultList();
+        List<Offices> officesList = entityManager.createQuery("SELECT o from Offices o WHERE o.officeNumber = ?1").setParameter(1,id).getResultList();
         JSONObject jsonObject = new JSONObject();
 
         for (int i = 0; i < officesList.size(); i++) {
             jsonObject.put(Integer.toString(i),officesList.get(i).toJSON());
         }
+        entityManager.flush();
+
         return jsonObject;
     }
-  /*  public JSONobject getOfficesBydate_freeoffices (int id)do zrobienia
-    {
-        entityTransaction.begin();
-        List<Prescriptions> officesList = entityManager.createQuery("SELECT o from Offices o WHERE o.officeNumber = ?1").setParameter(1,id).getResultList();
-        JSONObject jsonObject = new JSONObject();
 
-        for (int i = 0; i < officesList.size(); i++) {
-            jsonObject.put(Integer.toString(i),officesList.get(i).toJSON());
-        }
-        return jsonObject;
-    }
-    public JSONobject getOfficesBydate_takenoffices (int id) throws JsonProcessingException
-    {
-        entityTransaction.begin();
-        List<Prescriptions> officesList = entityManager.createQuery("SELECT o from Offices o WHERE o.officeNumber = ?1").setParameter(1,id).getResultList();
-     JSONObject jsonObject = new JSONObject();
-
-        for (int i = 0; i < officesList.size(); i++) {
-            jsonObject.put(Integer.toString(i),officesList.get(i).toJSON());
-        }
-        return jsonObject;
-    }*/
 
     public JSONObject getVisits ()
     {
@@ -273,6 +280,8 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
         for (int i = 0; i < visitsList.size(); i++) {
             jsonObject.put(Integer.toString(i),visitsList.get(i).toJSON());
         }
+        entityManager.flush();
+
         return jsonObject;
     }
     public JSONObject getVisitsBYvisID (int id)
@@ -287,6 +296,8 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
         for (int i = 0; i < visitsList.size(); i++) {
             jsonObject.put(Integer.toString(i),visitsList.get(i).toJSON());
         }
+        entityManager.flush();
+
         return jsonObject;
     }
     public JSONObject getVisitsBYdocID (int id)
@@ -301,6 +312,8 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
         for (int i = 0; i < visitsList.size(); i++) {
             jsonObject.put(Integer.toString(i),visitsList.get(i).toJSON());
         }
+        entityManager.flush();
+
         return jsonObject;
     }
     public JSONObject getVisitsBYpatID (int id)
@@ -315,6 +328,8 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
         for (int i = 0; i < visitsList.size(); i++) {
             jsonObject.put(Integer.toString(i),visitsList.get(i).toJSON());
         }
+        entityManager.flush();
+
         return jsonObject;
     }
 
@@ -362,6 +377,8 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
 
         entityManager.flush();
         System.out.println( query.toString());
+        entityManager.flush();
+
         entityTransaction.commit();
     }
     public void updatePatient (JSONObject jsonObject)
@@ -433,6 +450,8 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
         entityTransaction.begin();
         System.out.println(visit.toString());
         entityManager.merge(visit);
+        entityManager.flush();
+
         entityTransaction.commit();
     }
     public void insertPatient (Patients patient, Patientlogindata patientlogindata)
@@ -442,6 +461,8 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
         System.out.println(patientlogindata.toString());
         entityManager.merge(patient);
         entityManager.merge(patientlogindata);
+        entityManager.flush();
+
         entityTransaction.commit();
     }
     public void insertPrescription(Prescriptions prescript)
@@ -449,6 +470,8 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
         entityTransaction.begin();
         System.out.println(prescript.toString());
         entityManager.merge(prescript);
+        entityManager.flush();
+
         entityTransaction.commit();
     }
 
@@ -456,16 +479,30 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
     // delete
     public void deleteVisit (int id)
     {
+
         entityTransaction.begin();
-        entityManager.createQuery("DELETE FROM Visits vis WHERE vis.visitId = ?1  ").setParameter(1,id);
+        Visits visit = entityManager.find(Visits.class, id);
+
+        StringBuilder queryd = new StringBuilder("DELETE FROM visits WHERE visit_id = ");
+        queryd.append(id);
+        System.out.println(queryd.toString());
+        entityManager.createNativeQuery(queryd.toString()).executeUpdate();
+
+        entityManager.flush();
         entityTransaction.commit();
     }
     public void deletePatient (int id)
     {
-        entityTransaction.begin();
-        entityManager.createQuery("DELETE FROM Patients pat WHERE pat.patientId = ?1  ").setParameter(1,id);
-        entityManager.createQuery("DELETE FROM Patientlogindata p WHERE p.login  = ?1  ").setParameter(1,id);
 
+        entityTransaction.begin();
+        Patients patient = entityManager.find(Patients.class, id);
+
+        StringBuilder queryd = new StringBuilder("DELETE FROM patients WHERE patient_id = ");
+        queryd.append(id);
+        System.out.println(queryd.toString());
+        entityManager.createNativeQuery(queryd.toString()).executeUpdate();
+
+        entityManager.flush();
         entityTransaction.commit();
     }
     public void close()
@@ -474,6 +511,8 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
         if (entityTransaction.isActive()) {
             entityTransaction.rollback();
         }
+        entityManager.flush();
+
         entityManager.close();
         entityManagerFactory.close();
     }

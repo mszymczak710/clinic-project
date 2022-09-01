@@ -19,8 +19,8 @@ public class ClientAPI {
     static DataInputStream inputStream;
     static DataOutputStream outputStream;
     static  String userName="";
-    public static int IDuser=-1;
-    static int levelAccess=0; // 0 nzal 1 pat 2 lekarz
+    static int IDuser=-1;
+    static int levelAccess=2; // 0 nzal 1 pat 2 lekarz
 
     public ClientAPI() {
         try {
@@ -34,8 +34,7 @@ public class ClientAPI {
 
     }
 
-    public static void main(String[] args) {
-    }
+
 
     void login_patient (int id, String password ) throws IOException {
         jsonObject.clear();
@@ -88,27 +87,22 @@ public class ClientAPI {
 
 
     }
-     static List<Patients> getPatients()
+     List<Patients> getPatients()
     {
         jsonObject.clear();
         jsonObject.put("command", "getPatients");
         try {
             outputStream.writeUTF(jsonObject.toString());
-            jsonObject.clear();
+
             jsonObject = (JSONObject) JSONValue.parse(inputStream.readUTF());
-            if (jsonObject.isEmpty())
-            {
-                return new ArrayList<Patients>();
-            }
-            else
-            {
+
                 List<Patients> list = new ArrayList<>();
                 for (int i =0; i<jsonObject.size();i++)
                 {
                     list.add(new Patients( (JSONObject)jsonObject.get(Integer.toString(i)) )   );
                 }
                 return list;
-            }
+
 
 
         } catch (IOException e) {
@@ -116,7 +110,7 @@ public class ClientAPI {
         }
 
     }
-     static List<Patients> getPatientsByID(int id)
+     List<Patients> getPatientsByID(int id)
     {
         jsonObject.clear();
         jsonObject.put("command", "getPatientsByID");
@@ -125,26 +119,29 @@ public class ClientAPI {
             outputStream.writeUTF(jsonObject.toString());
             jsonObject.clear();
             jsonObject = (JSONObject) JSONValue.parse(inputStream.readUTF());
+            if (jsonObject != null){
             if (jsonObject.isEmpty())
             {
                 return new ArrayList<Patients>();
             }
-            else
-            {
+            else {
                 List<Patients> list = new ArrayList<>();
-                for (int i =0; i<jsonObject.size();i++)
-                {
-                    list.add(new Patients( (JSONObject)jsonObject.get(Integer.toString(i)) )   );
+                for (int i = 0; i < jsonObject.size(); i++) {
+                    list.add(new Patients((JSONObject) jsonObject.get(Integer.toString(i))));
                 }
                 return list;
+
+            }
             }
 
 
         } catch (IOException e) {
             return new ArrayList<Patients>();
         }
+        return new ArrayList<Patients>();
+
     }
-     static List<Doctors> getDoctors()
+    List<Doctors> getDoctors()
     {
         jsonObject.clear();
         jsonObject.put("command", "getDoctors");
@@ -171,7 +168,7 @@ public class ClientAPI {
             return new ArrayList<Doctors>();
         }
     }
-     static List<Doctors> getDoctorsByID(int id)
+     List<Doctors> getDoctorsByID(int id)
     {
         jsonObject.clear();
         jsonObject.put("command", "getDoctorsByID");
@@ -199,7 +196,7 @@ public class ClientAPI {
             return new ArrayList<Doctors>();
         }
     }
-     static List<Doctors> getDoctorsByJobExcutionnumb(int id)
+     List<Doctors> getDoctorsByJobExcutionnumb(int id)
     {
         jsonObject.clear();
         jsonObject.put("command", "getDoctorsByJobExcutionnumb");
@@ -227,7 +224,7 @@ public class ClientAPI {
             return new ArrayList<Doctors>();
         }
     }
-     static List<Prescriptions> getPrescriptions()
+    List<Prescriptions> getPrescriptions()
     {
         jsonObject.clear();
         jsonObject.put("command", "getPrescriptions");
@@ -254,7 +251,7 @@ public class ClientAPI {
             return new ArrayList<Prescriptions>();
         }
     }
-     static List<Prescriptions>  getPrescriptionsBYprescID(int id)
+    List<Prescriptions>  getPrescriptionsBYprescID(int id)
     {
         jsonObject.clear();
         jsonObject.put("command", "getPrescriptionsBYprescID");
@@ -282,7 +279,7 @@ public class ClientAPI {
             return new ArrayList<Prescriptions>();
         }
     }
-     static List<Prescriptions>  getPrescriptionsBYpatientID(int id)
+     List<Prescriptions>  getPrescriptionsBYpatientID(int id)
     {
         jsonObject.clear();
         jsonObject.put("command", "getPrescriptionsBYpatientID");
@@ -310,7 +307,7 @@ public class ClientAPI {
             return new ArrayList<Prescriptions>();
         }
     }
-     static List<Prescriptions>   getPrescriptionsBYvisitID(int id)
+    List<Prescriptions>   getPrescriptionsBYvisitID(int id)
     {
         jsonObject.clear();
         jsonObject.put("command", "getPrescriptionsBYvisitID");
@@ -338,7 +335,7 @@ public class ClientAPI {
             return new ArrayList<Prescriptions>();
         }
     }
-     static List<Prescriptions>   getPrescriptionsBYDate(Date date)
+      List<Prescriptions>   getPrescriptionsBYDate(Date date)
     {
         jsonObject.clear();
         jsonObject.put("command", "getPrescriptionsBYprescID");
@@ -366,7 +363,7 @@ public class ClientAPI {
             return new ArrayList<Prescriptions>();
         }
     }
-    private static List<Offices> getOffices()
+   List<Offices> getOffices()
     {
         jsonObject.clear();
         jsonObject.put("command", "getOffices");
@@ -393,7 +390,7 @@ public class ClientAPI {
             return new ArrayList<Offices>();
         }
     }
-    private static List<Offices> getOfficesBYid(int id)
+     List<Offices> getOfficesBYid(int id)
     {
         jsonObject.clear();
         jsonObject.put("command", "getOffices");
@@ -421,7 +418,7 @@ public class ClientAPI {
             return new ArrayList<Offices>();
         }
     }
-    private static List<Visits> getVisits()
+    List<Visits> getVisits()
     {
         jsonObject.clear();
         jsonObject.put("command", "getVisits");
@@ -448,7 +445,7 @@ public class ClientAPI {
             return new ArrayList<Visits>();
         }
     }
-     static List<Visits> getVisitsBYvisID(int id)
+    List<Visits> getVisitsBYvisID(int id)
     {
         jsonObject.clear();
         jsonObject.put("command", "getVisitsBYvisID");
@@ -476,7 +473,7 @@ public class ClientAPI {
             return new ArrayList<Visits>();
         }
     }
-     static List<Visits> getVisitsBYdocID(int id)
+    List<Visits> getVisitsBYdocID(int id)
     {
         jsonObject.clear();
         jsonObject.put("command", "getVisitsBydocID");
@@ -505,7 +502,7 @@ public class ClientAPI {
             return new ArrayList<Visits>();
         }
     }
-     static List<Visits> getVisitsBYpatID(int id)
+     List<Visits> getVisitsBYpatID(int id)
     {
         jsonObject.clear();
         jsonObject.put("command", "getVisitsBYpatID");
@@ -534,7 +531,7 @@ public class ClientAPI {
             return new ArrayList<Visits>();
         }
     }
-     static void insertPatient (String pesel, String firstName, String lastName, java.sql.Date dateOfBirth, String address, String city, String zipCode, String phoneNumber, String emailAddress, String Password )
+     void insertPatient (String pesel, String firstName, String lastName, java.sql.Date dateOfBirth, String address, String city, String zipCode, String phoneNumber, String emailAddress, String Password )
     {
         jsonObject.clear();
 
@@ -556,7 +553,7 @@ public class ClientAPI {
             throw new RuntimeException(e);
         }
     }
-    private static void insertPrescription (String description,java.sql.Date dateOfIssue,int visitId)
+    void insertPrescription (String description,java.sql.Date dateOfIssue,int visitId)
     {
         jsonObject.clear();
         jsonObject.put("command","insertPrescription");
@@ -573,7 +570,7 @@ public class ClientAPI {
             throw new RuntimeException(e);
         }
     }
-    private static void insertVisit(java.sql.Date dateOfVisit,int durInmin,int patientId, int officeNumber) {
+     void insertVisit(java.sql.Date dateOfVisit,int durInmin,int patientId, int officeNumber) {
         if (levelAccess == 2 && IDuser!=-1) {
             jsonObject.clear();
             jsonObject.put("command","insertVisit");
@@ -584,13 +581,13 @@ public class ClientAPI {
             jsonObject.put("officeNumber", officeNumber);
         }
     }
-    private static void deletePatient(int id) throws IOException {
+     void deletePatient(int id) throws IOException {
         jsonObject.clear();
         jsonObject.put("command","deletePatient");
         jsonObject.put("id",id);
         outputStream.writeUTF(jsonObject.toString());
     }
-    private static void deleteVisit(int id) throws IOException {
+     void deleteVisit(int id) throws IOException {
         jsonObject.clear();
         jsonObject.put("command","deleteVisit");
         jsonObject.put("id",id);

@@ -26,14 +26,11 @@ public class Doctorlogindata {
     }
 
     public String getPassword() {
-        byte[] decodedBytes = Base64.getDecoder().decode(this.password);
-        String decodedString = new String(decodedBytes);
-        return decodedString;
+        return password;
     }
 
     public void setPassword(String password) {
-        String encodedString = Base64.getEncoder().encodeToString(password.getBytes());
-        this.password = encodedString;
+       this.password= password;
     }
 
     @Override

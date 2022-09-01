@@ -61,7 +61,7 @@ public class Offices {
     public Offices() {
     }
     public Offices(JSONObject jsonObject) {
-        this.officeNumber = (int) jsonObject.get("officeNumber");
+        this.officeNumber = Integer.parseInt( jsonObject.get("officeNumber").toString() );
         this.typeOfOffice = (String) jsonObject.get("typeOfOffice");
     }
 

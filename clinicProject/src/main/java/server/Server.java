@@ -12,11 +12,13 @@ public class Server {
     final static private int PORT = 9999;
 
     public static void main(String[] args) {
-        ServerSocket server;
+        ServerSocket server=null;
 
         try {
             System.out.println("[ Serwer ]: nasluchuje na porcie " + PORT);
             server = new ServerSocket(PORT);
+            server.setReuseAddress(true);
+
 
             while (true) {
                 System.out.println("[ Serwer ]: oczekiwanie na polaczenie z klientem");

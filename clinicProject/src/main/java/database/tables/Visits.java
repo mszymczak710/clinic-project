@@ -116,12 +116,12 @@ public class Visits {
     public Visits() {
     }
     public Visits(JSONObject jsonObject) {
-        this.visitId = (int) jsonObject.get("visitId");
-        this.dateOfVisit = (Timestamp) jsonObject.get("dateOfVisit");
-        this.durationInMinutes = (int) jsonObject.get("durationInMinutes");
-        this.patientId = (int) jsonObject.get("patientId");
-        this.doctorId = (int) jsonObject.get("doctorId");
-        this.officeNumber = (int) jsonObject.get("officeNumber");
+        this.visitId =  Integer.parseInt(jsonObject.get("visitId").toString());
+        this.dateOfVisit = Timestamp.valueOf ( jsonObject.get("dateOfVisit").toString());
+        this.durationInMinutes = Integer.parseInt( jsonObject.get("durationInMinutes").toString() );
+        this.patientId = Integer.parseInt( jsonObject.get("patientId").toString());
+        this.doctorId = Integer.parseInt( jsonObject.get("doctorId").toString() );
+        this.officeNumber = Integer.parseInt( jsonObject.get("officeNumber").toString() );
 
     }
 

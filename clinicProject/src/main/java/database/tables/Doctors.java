@@ -99,10 +99,10 @@ public class Doctors {
     public Doctors() {
     }
     public Doctors(JSONObject jsonObject) {
-        this.doctorId = (int) jsonObject.get("doctor_id");
+        this.doctorId = Integer.parseInt( jsonObject.get("doctor_id").toString());
         this.firstName = (String) jsonObject.get("first_name");
         this.lastName = (String) jsonObject.get("last_name");
-        this.jobExecutionNumber = (int) jsonObject.get("job_execution_number");
+        this.jobExecutionNumber = Integer.parseInt( jsonObject.get("job_execution_number").toString() );
         this.specialization = (String) jsonObject.get("specialization");
     }
     public JSONObject toJSON ()

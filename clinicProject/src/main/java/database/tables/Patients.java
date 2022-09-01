@@ -152,11 +152,11 @@ public class Patients {
 
     public Patients(JSONObject jsonObject)
     {
-        this.patientId = (int) jsonObject.get("patientId");
+        this.patientId = Integer.parseInt( jsonObject.get("patientId").toString() );
         this.pesel= (String) jsonObject.get("pesel");
         this.firstName = (String) jsonObject.get("patientId");
         this.lastName= (String) jsonObject.get("lastName");
-        this.dateOfBirth = (Date) jsonObject.get("dateOfBirth");
+        this.dateOfBirth = Date.valueOf( jsonObject.get("dateOfBirth").toString() );
         this.address= (String) jsonObject.get("address");
         this.city = (String) jsonObject.get("city");
         this.zipCode= (String) jsonObject.get("zipCode");

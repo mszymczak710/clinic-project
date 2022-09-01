@@ -23,16 +23,12 @@ public class ServerThread implements Runnable {
     DataOutputStream outputStream;
     DBAPI dbapi;
 
-    int accesslevel = 0; // 1 pat 2 doc
+    int accesslevel = 2; // 1 pat 2 doc
     int patid = -1;
     int docid = -1;
 
     public ServerThread(Socket socket) throws IOException {
-        try {
-            this.socket = socket;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        this.socket = socket;
     }
 
     public void run() {
@@ -57,25 +53,16 @@ public class ServerThread implements Runnable {
     }
 
     private void clientCommunication() throws IOException {
-        /* czy sprawdzamy odrazu status accesu? */
-        /*czy szukamy cos na pierwsze spojrzenie? */
-
         /*petla obslugujaca zapytania z klienta*/
         while (true) {
 
+            clientMessage = inputStream.readUTF();
+            jsonObject = (JSONObject) JSONValue.parse(clientMessage);
 
-            if (jsonObject.get("command").equals("break"))
-            {
-                dbapi.close();
-                break;
-            }
 
 
             if (accesslevel == 0) // logowanie
             {
-                clientMessage = inputStream.readUTF();
-                jsonObject = (JSONObject) JSONValue.parse(clientMessage);
-
                 JSONObject jsonObject2 = new JSONObject();
 
                 if (jsonObject.get("usertype").equals("doc")) {
@@ -100,8 +87,6 @@ public class ServerThread implements Runnable {
             if (accesslevel > 0) // zalogowany
             {
                 try {
-                    clientMessage = inputStream.readUTF();
-                    jsonObject = (JSONObject) JSONValue.parse(clientMessage);
                     clientMessage = (String) jsonObject.get("command");
                     if (clientMessage.equals("break")) break;
 
@@ -111,45 +96,41 @@ public class ServerThread implements Runnable {
                                 getPatients();
                                 break;
                             case "getPatientsByID":
-                                getPatientsByID((int)jsonObject.get("args"));
+                                getPatientsByID(Integer.parseInt(jsonObject.get("args").toString()));
                                 break;
                             case "getDoctors":
                                 getDoctors();
                                 break;
-                            case "getDoctorsByID":
-                                getDoctorsByID((int)jsonObject.get("args"));
-                                break;
-                            case "getDoctorsByJobExecutionnumb":
-                                getDoctorsByJobExecutionnumb((int)jsonObject.get("args"));
-                                break;
+
                             case "getPrescriptions":
                                 getPrescriptions();
                                 break;
                             case "getPrescriptionsBYprescID":
-                                getPrescriptionsBYprescID((int)jsonObject.get("args"));
+                                getPrescriptionsBYprescID(Integer.parseInt(jsonObject.get("args").toString()));
                                 break;
                             case "getPrescriptionsBYpatientID":
-                                getPrescriptionsBYpatientID((int)jsonObject.get("args"));
+                                getPrescriptionsBYpatientID(Integer.parseInt(jsonObject.get("args").toString()));
                                 break;
                             case "getPrescriptionsBYvisitID":
-                                getPrescriptionsBYvisitID((int)jsonObject.get("args"));
-                                break;
-                            case "getPrescriptionsBYDate":
-                                getPrescriptionsBYDate((Date)jsonObject.get("args"));
+                                getPrescriptionsBYvisitID(Integer.parseInt(jsonObject.get("args").toString()));
                                 break;
                             case "getVisits":
                                 getVisits();
                                 break;
                             case "getVisitsBYvisID":
-                                getVisitsBYvisID((int)jsonObject.get("args"));
+                                getVisitsBYvisID((Integer.parseInt(jsonObject.get("args").toString())));
                                 break;
                             case "getVisitsBYdocID":
-                                getVisitsBYdocID((int)jsonObject.get("args"));
+                                getVisitsBYdocID((Integer.parseInt(jsonObject.get("args").toString())));
                                 break;
                             case "getVisitsBYpatID":
-                                getVisitsBYpatID((int)jsonObject.get("args"));
+                                getVisitsBYpatID((Integer.parseInt(jsonObject.get("args").toString())));
                                 break;
-
+                            case "getOffices":
+                                getOffices();
+                                break;
+                            case "getOfficesBYID":
+                                getOfficesBYid((Integer.parseInt(jsonObject.get("args").toString())));
 
                         }
                         if (accesslevel ==2)
@@ -163,7 +144,7 @@ public class ServerThread implements Runnable {
                                 case "insertVisit":
                                     Visits visitTOadd = new Visits();
                                     visitTOadd.setVisitId(0);
-                                    visitTOadd.setDateOfVisit((Timestamp) jsonObject.get("dateOfVisit"));
+                                    visitTOadd.setDateOfVisit((Timestamp) jsonObject.get("dateOfVisit"));//
                                     visitTOadd.setDurationInMinutes((int)jsonObject.get("durationInMinutes"));
                                     visitTOadd.setPatientId((int)jsonObject.get("patientId"));
                                     visitTOadd.setDoctorId((int)jsonObject.get("doctorId"));
@@ -358,14 +339,7 @@ public class ServerThread implements Runnable {
             System.out.println("error outputstrean.writeUTF");
         }
     }
-    /* private void getOfficesBydate_freeoffices ( int id)
-     {
 
-     }
-     private void getOfficesBydate_takenoffices ( int id)
-     {
-
-     }*/
     private void getVisits ()
     {
         jsonObject.clear();
