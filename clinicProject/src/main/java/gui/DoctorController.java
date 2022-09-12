@@ -6,6 +6,7 @@ import database.tables.Visits;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Modality;
@@ -84,16 +85,6 @@ public class DoctorController {
 
     }
 
-    @FXML
-    void onCreatePrescriptionClick(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("new_prescription.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        Stage stage = new Stage();
-
-    }
-
-
 
     @FXML
     void onPatientRegistrationClick(ActionEvent event) throws IOException {
@@ -137,6 +128,42 @@ public class DoctorController {
 
     @FXML
     private TextField surnamePatient;
+
+    @FXML
+    private Button editPatient;
+
+    @FXML
+    private Button editVisit;
+
+    @FXML
+    void editPatientClick(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("edit_patient.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage stage = new Stage();
+
+        stage.setTitle("Edycja pacjenta");
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initOwner(myVisits.getScene().getWindow());
+        stage.setScene(scene);
+        stage.show();
+
+    }
+
+    @FXML
+    void editVisitClick(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("delete_visits.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage stage = new Stage();
+
+        stage.setTitle("Edycja wizyty");
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initOwner(myVisits.getScene().getWindow());
+        stage.setScene(scene);
+        stage.show();
+
+    }
 
     @FXML
     void addPatientClick(ActionEvent event) {
@@ -214,7 +241,17 @@ public class DoctorController {
     private TextField pieces;
 
     @FXML
-    void createPrescriptionClick(ActionEvent event) {
+    void onCreatePrescriptionClick(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("new_prescription.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage stage = new Stage();
+
+        stage.setTitle("Edycja wizyty");
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initOwner(myVisits.getScene().getWindow());
+        stage.setScene(scene);
+        stage.show();
 
     }
 

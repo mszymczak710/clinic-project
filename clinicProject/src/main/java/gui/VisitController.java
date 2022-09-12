@@ -7,12 +7,14 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class VisitController {
@@ -39,23 +41,48 @@ public class VisitController {
     }
     @FXML
     void clearDataClick(ActionEvent event) {
-
+        for(int i = 0; i < tableVisit.getItems().size(); i++){
+            tableVisit.getItems().clear();
+        }
+        statusVisit.getSelectionModel().clearSelection();
     }
     @FXML
     private Button searchVisit;
     @FXML
     void searchVisitClick(ActionEvent event) {
+        if(statusVisit.getValue().equals("coming")){
+            System.out.println("comming");
+            DBAPI dbapi = new DBAPI();
+            List<Visits> list;
+            list = dbapi.getVisitsComing(dane.idUser);
+            System.out.println(list.toString());
+
+        } else if (statusVisit.getValue().equals("ended")) {
+            System.out.println("ended");
+            DBAPI dbapi = new DBAPI();
+            List<Visits> list;
+            list = dbapi.getVisitsEnded(dane.idUser);
+            System.out.println(list.toString());
+
+        }
+        else {
+            System.out.println("Set value of combobox");
+        }
+
 
     }
+
+    @FXML
+    private ComboBox<String> statusVisit;
 
     @FXML
     public void initialize() {
         list2.clear();
         DBAPI dbapi = new DBAPI();
         List<Visits> listVisits;
-        System.out.println("ID:");
-        System.out.println(dane.idUser);
-        if(dane.idUser == 1) {
+        System.out.println("Typ:");
+        System.out.println(dane.typ);
+        if(dane.typ == 1) {
             listVisits = dbapi.getVisitsBYpatID(dane.idUser);
         }
         else{
@@ -66,8 +93,11 @@ public class VisitController {
         idVisitCol.setCellValueFactory(new PropertyValueFactory<Visits, Integer>("visitId"));
         dataVisitCol.setCellValueFactory(new PropertyValueFactory<Visits, java.sql.Timestamp>("dateOfVisit"));
         officeVisitCol.setCellValueFactory(new PropertyValueFactory<Visits, Integer>("officeNumber"));
+        statusVisit.getItems().addAll("coming", "ended");
+
 
         tableVisit.setItems(list2);
+
 
     }
 }

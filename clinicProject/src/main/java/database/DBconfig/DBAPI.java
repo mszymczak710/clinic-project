@@ -8,6 +8,8 @@ import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 // serwer wykonuje operacje na bazie, przygotowuje string do zwrocenia klientowi
 public class DBAPI { /*tutaj beda polaczenie z hibernate*/
@@ -71,14 +73,14 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
         return resultList.get(0).getPatientId();
     }
 
-    public List<Patients> getPatientsByID(int id){
+    public Patients getPatientsByID(int id){
         entityTransaction.begin();
 
         List<Patients> patientsList = entityManager.createQuery("SELECT p from Patients p where p.patientId = ?1").setParameter(1,id).getResultList();
 
         entityTransaction.commit();
 
-        return patientsList;
+        return patientsList.get(0);
     }
 
     public List<Doctors> getDoctors()  {
@@ -217,6 +219,30 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
         return visitsList;
     }
 
+    public List<Visits> getVisitsEnded(int id)
+    {
+        entityTransaction.begin();
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        List<Visits> visitsList = entityManager.createQuery("SELECT vis from Visits vis WHERE vis.dateOfVisit < ?1 and vis.patientId = ?2").setParameter(1,timestamp).setParameter(2, id ).getResultList();
+        entityTransaction.commit();
+
+        System.out.println(visitsList.size());
+
+        return visitsList;
+    }
+
+    public List<Visits> getVisitsComing(int id)
+    {
+        entityTransaction.begin();
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        List<Visits> visitsList = entityManager.createQuery("SELECT vis from Visits vis WHERE vis.dateOfVisit >= ?1 and vis.patientId = ?2").setParameter(1,timestamp).setParameter(2,id).getResultList();
+        entityTransaction.commit();
+
+        System.out.println(visitsList.size());
+
+        return visitsList;
+    }
+
 
     // update
 //    public void updateVisit (int id, Visits dozmiany){
@@ -271,11 +297,11 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
         List<Patients> patientsList = entityManager.createQuery("SELECT p from Patients p where p.patientId = ?1").setParameter(1,id).getResultList();
 
         Patients patient = patientsList.get(0);
-        StringBuilder query = new StringBuilder("UPDATE Patient p SET ");
+        StringBuilder query = new StringBuilder("UPDATE patients SET ");
 
 
         if (dozmiany.getPesel() != patient.getPesel()) {
-            query.append("pesel = ");
+            query.append("pesel = '");
             query.append(dozmiany.getPesel());
             query.append("' ");
             if (dozmiany.getFirstName() != patient.getFirstName() || dozmiany.getLastName() != patient.getLastName()  || dozmiany.getDateOfBirth() != patient.getDateOfBirth() || dozmiany.getAddress() != patient.getAddress() || dozmiany.getCity() != patient.getCity() || dozmiany.getPhoneNumber() != patient.getPhoneNumber() ||dozmiany.getAddress() != patient.getAddress())
@@ -283,48 +309,48 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
 
         }
         if (dozmiany.getFirstName() != patient.getFirstName() ) {
-            query.append("first_name = ");
+            query.append("first_name = '");
             query.append(dozmiany.getFirstName());
             query.append("' ");
             if (dozmiany.getLastName() != patient.getLastName()  || dozmiany.getDateOfBirth() != patient.getDateOfBirth() || dozmiany.getAddress() != patient.getAddress() || dozmiany.getCity() != patient.getCity() || dozmiany.getPhoneNumber() != patient.getPhoneNumber() || dozmiany.getEmailAddress() != patient.getEmailAddress())
                 query.append(", ");
         }
         if (dozmiany.getLastName() != patient.getLastName()) {
-            query.append("last_name = ");
+            query.append("last_name = '");
             query.append(dozmiany.getLastName());
             query.append("' ");
             if (dozmiany.getDateOfBirth() != patient.getDateOfBirth() ||dozmiany.getAddress() != patient.getAddress() || dozmiany.getCity() != patient.getCity() || dozmiany.getPhoneNumber() != patient.getPhoneNumber() || dozmiany.getEmailAddress() != patient.getEmailAddress() )
                 query.append(", ");
         }
         if (dozmiany.getDateOfBirth() != patient.getDateOfBirth()) {
-            query.append("date_of_birth = ");
+            query.append("date_of_birth = '");
             query.append(dozmiany.getDateOfBirth());
             query.append("' ");
             if (dozmiany.getAddress() != patient.getAddress() ||dozmiany.getCity() != patient.getCity() || dozmiany.getPhoneNumber() != patient.getPhoneNumber() ||dozmiany.getEmailAddress() != patient.getEmailAddress())
                 query.append(", ");              }
         if (dozmiany.getAddress() != patient.getAddress()) {
-            query.append("address = ");
+            query.append("address = '");
             query.append(dozmiany.getAddress());
             query.append("' ");
             if (dozmiany.getCity() != patient.getCity() || dozmiany.getPhoneNumber() != patient.getPhoneNumber() || dozmiany.getEmailAddress() != patient.getEmailAddress())
                 query.append(", ");
         }
         if (dozmiany.getCity() != patient.getCity()) {
-            query.append("city = ");
+            query.append("city = '");
             query.append(dozmiany.getCity());
             query.append("' ");
             if (dozmiany.getPhoneNumber() != patient.getPhoneNumber() || dozmiany.getEmailAddress() != patient.getEmailAddress() )
                 query.append(", ");
         }
         if (dozmiany.getPhoneNumber() != patient.getPhoneNumber()) {
-            query.append("phone_number = ");
+            query.append("phone_number = '");
             query.append(dozmiany.getPhoneNumber());
             query.append("' ");
             if (dozmiany.getEmailAddress() != patient.getEmailAddress())
                 query.append(", ");
         }
         if (dozmiany.getEmailAddress() != patient.getEmailAddress()) {
-            query.append("email_address = ");
+            query.append("email_address = '");
             query.append(dozmiany.getEmailAddress());
             query.append("' ");
         }
@@ -360,16 +386,20 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
 
 
     // delete
-    public void deleteVisit (int id)
-    {
+    public void deleteVisit (int id) {
         entityTransaction.begin();
-        entityManager.createQuery("DELETE FROM Visits vis WHERE vis.visitId = ?1  ").setParameter(1,id);
+        StringBuilder queryd = new StringBuilder("DELETE FROM visits vis WHERE vis.visit_id =");
+        queryd.append(id);
+        System.out.println(queryd.toString());
+        entityManager.createNativeQuery(queryd.toString()).executeUpdate();
         entityTransaction.commit();
     }
-    public void deletePatient (int id)
-    {
+    public void deletePatient (int id) {
         entityTransaction.begin();
-        entityManager.createQuery("DELETE FROM Patients pat WHERE pat.patientId = ?1  ").setParameter(1,id);
+        StringBuilder queryd = new StringBuilder("DELETE FROM patients pat WHERE pat.patient_id =");
+        queryd.append(id);
+        System.out.println(queryd.toString());
+        entityManager.createNativeQuery(queryd.toString()).executeUpdate();
         entityTransaction.commit();
     }
     public void close()
