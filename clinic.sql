@@ -44,7 +44,7 @@ CREATE TABLE Visits (
 	duration_in_minutes INT  NOT NULL,
 	patient_id INT NOT NULL,
 	doctor_id INT NOT NULL,
-	office_number INT NOT NULL UNIQUE,
+	office_number INT NOT NULL,
 	PRIMARY KEY (visit_id)
 );
 
