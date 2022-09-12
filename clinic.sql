@@ -11,22 +11,16 @@ CREATE TABLE Patients (
 	zip_code VARCHAR(6),
 	phone_number VARCHAR(9) NOT NULL,
 	email_address VARCHAR(30),
+	pass VARCHAR(15) NOT NULL,
 	PRIMARY KEY (patient_id)
 );
 
-INSERT INTO Patients VALUES (1, '97062064754', 'Mateusz', 'Kowalski', '1997-06-20', 'Warynskiego 13', 'Torun', '87-100', '728534121', 'matikowalski@interia.pl');
-INSERT INTO Patients VALUES (2, '58012659938', 'Eugeniusz', 'Walczak', '1958-01-26', 'Mickiewicza 132/12', 'Torun', '87-100', '542324367', NULL);
-INSERT INTO Patients VALUES (3, NULL, 'Denys', 'Kovalenko', '2000-03-23', 'Mickiewicza 132/12', 'Torun', '87-100', '501844140', 'denyskov@wp.pl');
-INSERT INTO Patients VALUES (4, '02262054621', 'Nikola', 'Jankowska', '2002-06-20', 'Mostowa 13/1', 'Torun', '87-100', '608244154', 'nikijankowska@onet.pl');
-INSERT INTO Patients VALUES (5, '67051039999', 'Eustachy', 'Wozniak', '1967-05-10', 'Waniliowa 15', 'Torun', '87-100', '575354102', NULL);
+INSERT INTO Patients VALUES (1, '97062064754', 'Mateusz', 'Kowalski', '1997-06-20', 'Warynskiego 13', 'Torun', '87-100', '728534121', 'matikowalski@interia.pl', '123');
+INSERT INTO Patients VALUES (2, '58012659938', 'Eugeniusz', 'Walczak', '1958-01-26', 'Mickiewicza 132/12', 'Torun', '87-100', '542324367', NULL, '123');
+INSERT INTO Patients VALUES (3, NULL, 'Denys', 'Kovalenko', '2000-03-23', 'Mickiewicza 132/12', 'Torun', '87-100', '501844140', 'denyskov@wp.pl', '123');
+INSERT INTO Patients VALUES (4, '02262054621', 'Nikola', 'Jankowska', '2002-06-20', 'Mostowa 13/1', 'Torun', '87-100', '608244154', 'nikijankowska@onet.pl', '123');
+INSERT INTO Patients VALUES (5, '67051039999', 'Eustachy', 'Wozniak', '1967-05-10', 'Waniliowa 15', 'Torun', '87-100', '575354102', NULL, '123');
 
-CREATE TABLE PatientLoginData (
-	login INT NOT NULL,
-	password VARCHAR(20) NOT NULL,
-	PRIMARY KEY (login)
-);
-
-INSERT INTO PatientLoginData VALUES (1, 'deszcz123');
 
 CREATE TABLE Doctors (
 	doctor_id INT NOT NULL,
@@ -34,20 +28,15 @@ CREATE TABLE Doctors (
 	last_name VARCHAR(20) NOT NULL,
 	job_execution_number INT NOT NULL UNIQUE,
 	specialization VARCHAR(40),
+	pass VARCHAR(15) NOT NULL,
 	PRIMARY KEY (doctor_id)
 );
 
-INSERT INTO Doctors VALUES (1, 'Jan', 'Kowalski', 654321, 'internista');
-INSERT INTO Doctors VALUES (2, 'Maria', 'Borowska', 742148, 'ginekolog');
-INSERT INTO Doctors VALUES (3, 'Elzbieta', 'Kalinowska', 854317, 'pediatra');
+INSERT INTO Doctors VALUES (1, 'Jan', 'Kowalski', 654321, 'internista', '123');
+INSERT INTO Doctors VALUES (2, 'Maria', 'Borowska', 742148, 'ginekolog', '123');
+INSERT INTO Doctors VALUES (3, 'Elzbieta', 'Kalinowska', 854317, 'pediatra', '123');
 
-CREATE TABLE DoctorLoginData (
-	login INT NOT NULL,
-	password VARCHAR(20) NOT NULL,
-	PRIMARY KEY (login)
-);
 
-INSERT INTO DoctorLoginData VALUES (654321, 'slonce321');
 
 CREATE TABLE Visits (
 	visit_id INT NOT NULL,
@@ -80,10 +69,11 @@ CREATE TABLE Prescriptions (
 	date_of_issue DATE NOT NULL,
 	expiration_date DATE NOT NULL,
 	visit_id INT NOT NULL,
+	patient_id INT NOT NULL,
 	PRIMARY KEY (prescription_id)
 );
 
-INSERT INTO Prescriptions VALUES (1, 'Lekarstwo na bol gardla', 3342, '2022-06-30', '2022-07-30', 1);
+INSERT INTO Prescriptions VALUES (1, 'Lekarstwo na bol gardla', 3342, '2022-06-30', '2022-07-30', 1, 1);
 
 ALTER TABLE Visits ADD CONSTRAINT Visits_fk0 FOREIGN KEY (patient_id) REFERENCES Patients(patient_id);
 ALTER TABLE Visits ADD CONSTRAINT Visits_fk1 FOREIGN KEY (doctor_id) REFERENCES Doctors(doctor_id);
@@ -91,8 +81,6 @@ ALTER TABLE Visits ADD CONSTRAINT Visits_fk2 FOREIGN KEY (office_number) REFEREN
 
 ALTER TABLE Prescriptions ADD CONSTRAINT Prescriptions_fk0 FOREIGN KEY (visit_id) REFERENCES Visits(visit_id);
 
-ALTER TABLE PatientLoginData ADD CONSTRAINT PatientLoginData_fk0 FOREIGN KEY (login) REFERENCES Patients(patient_id);
 
-ALTER TABLE DoctorLoginData ADD CONSTRAINT DoctorLoginData_fk0 FOREIGN KEY (login) REFERENCES Doctors(job_execution_number);
 
 END;
