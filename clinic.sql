@@ -11,7 +11,7 @@ CREATE TABLE Patients (
 	zip_code VARCHAR(6),
 	phone_number VARCHAR(9) NOT NULL,
 	email_address VARCHAR(30),
-	password VARCHAR(15) NOT NULL,
+	pass VARCHAR(15) NOT NULL,
 	PRIMARY KEY (patient_id)
 );
 
@@ -28,7 +28,7 @@ CREATE TABLE Doctors (
 	last_name VARCHAR(20) NOT NULL,
 	job_execution_number INT NOT NULL UNIQUE,
 	specialization VARCHAR(40),
-	password VARCHAR(15) NOT NULL,
+	pass VARCHAR(15) NOT NULL,
 	PRIMARY KEY (doctor_id)
 );
 
