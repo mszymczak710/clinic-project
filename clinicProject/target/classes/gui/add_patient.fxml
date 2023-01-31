@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.DoctorController">
+   <children>
+      <Label alignment="CENTER" layoutX="167.0" layoutY="10.0" prefHeight="59.0" prefWidth="266.0" text="Nowy pacjent" textFill="#385481">
+         <font>
+            <Font size="41.0" />
+         </font>
+      </Label>
+      <Button fx:id="exitApp" layoutX="534.0" layoutY="14.0" mnemonicParsing="false" onAction="#onExitAppClick" text="Wyjscie" />
+      <Button fx:id="addPatient" layoutX="381.0" layoutY="349.0" mnemonicParsing="false" onAction="#addPatientClick" text="Dodaj" />
+      <Button fx:id="clear" layoutX="185.0" layoutY="349.0" mnemonicParsing="false" onAction="#clearDataClick" text="Wyczysc" />
+      <TextField fx:id="namePatient" layoutX="97.0" layoutY="111.0" />
+      <TextField fx:id="surnamePatient" layoutX="97.0" layoutY="151.0" />
+      <TextField fx:id="pesel" layoutX="97.0" layoutY="187.0" />
+      <TextField fx:id="phoneNumber" layoutX="97.0" layoutY="270.0" />
+      <TextField fx:id="address" layoutX="396.0" layoutY="111.0" />
+      <Label layoutX="33.0" layoutY="115.0" prefHeight="18.0" prefWidth="29.0" text="Imie" />
+      <Label layoutX="35.0" layoutY="154.0" prefHeight="18.0" prefWidth="56.0" text="Nazwisko" />
+      <Label layoutX="43.0" layoutY="190.0" prefHeight="18.0" prefWidth="40.0" text="PESEL" />
+      <Label layoutX="10.0" layoutY="273.0" prefHeight="18.0" prefWidth="89.0" text="Numer telefonu" />
+      <Label layoutX="288.0" layoutY="115.0" prefHeight="18.0" prefWidth="112.0" text="Adres zamieszkania" />
+      <DatePicker fx:id="bday" layoutX="97.0" layoutY="230.0" />
+      <Label layoutX="14.0" layoutY="233.0" prefHeight="18.0" prefWidth="82.0" text="Data urodzenia" />
+      <Label layoutX="355.0" layoutY="273.0" prefHeight="18.0" prefWidth="40.0" text="Haslo" />
+      <PasswordField fx:id="password" layoutX="396.0" layoutY="269.0" />
+      <Label layoutX="339.0" layoutY="155.0" text="Miasto" />
+      <Label layoutX="306.0" layoutY="191.0" text="Kod pocztowy" />
+      <Label layoutX="344.0" layoutY="233.0" text="E-mail" />
+      <TextField fx:id="city" layoutX="396.0" layoutY="151.0" />
+      <TextField fx:id="zipcode" layoutX="396.0" layoutY="187.0" />
+      <TextField fx:id="email" layoutX="396.0" layoutY="230.0" />
+   </children>
+</AnchorPane>

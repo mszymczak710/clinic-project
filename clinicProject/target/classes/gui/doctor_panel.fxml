@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.DoctorController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="207.0" layoutX="232.0" layoutY="107.0" stroke="BLACK" strokeType="INSIDE" width="167.0" />
+      <Label alignment="CENTER" layoutX="206.0" layoutY="14.0" prefHeight="59.0" prefWidth="218.0" text="Lekarz" textFill="#385481">
+         <font>
+            <Font size="41.0" />
+         </font>
+      </Label>
+      <Button fx:id="exitApp" layoutX="534.0" layoutY="14.0" mnemonicParsing="false" onAction="#onExitAppClick" text="Wyjscie" />
+      <Button fx:id="myVisits" layoutX="250.0" layoutY="220.0" mnemonicParsing="false" onAction="#myVisitsClick" prefHeight="26.0" prefWidth="130.0" text="Moje wizyty" />
+      <Button fx:id="patientRegistration" layoutX="250.0" layoutY="267.0" mnemonicParsing="false" onAction="#onPatientRegistrationClick" prefHeight="26.0" prefWidth="130.0" text="Nowy pacjent" />
+      <Button fx:id="listOfPatient" layoutX="250.0" layoutY="127.0" mnemonicParsing="false" onAction="#listOfPatientClick" prefHeight="26.0" prefWidth="130.0" text="Lista pacjentow" />
+      <Button fx:id="raports" layoutX="250.0" layoutY="173.0" mnemonicParsing="false" onAction="#raportsClick" prefHeight="26.0" prefWidth="130.0" text="Raporty" />
+   </children>
+</AnchorPane>

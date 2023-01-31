@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.RaportsController">
+   <children>
+      <DatePicker fx:id="dateVisit" layoutX="38.0" layoutY="170.0" />
+      <ComboBox fx:id="doctors" layoutX="38.0" layoutY="119.0" prefWidth="150.0" promptText="Lekarz" />
+      <Button fx:id="search" layoutX="38.0" layoutY="230.0" mnemonicParsing="false" onAction="#onSearchClick" prefHeight="75.0" prefWidth="134.0" text="Szukaj" />
+      <TableView fx:id="tableVisit" layoutX="259.0" layoutY="50.0" prefHeight="291.0" prefWidth="289.0">
+        <columns>
+          <TableColumn fx:id="dateCol" prefWidth="127.20001220703125" text="Data" />
+          <TableColumn fx:id="durationCol" prefWidth="88.0" text="Czas" />
+            <TableColumn fx:id="officeCol" prefWidth="72.0" text="Gabinet" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
