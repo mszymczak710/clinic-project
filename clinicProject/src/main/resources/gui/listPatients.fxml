@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ListPatientsController">
+   <children>
+      <TableView fx:id="patientsTable" layoutX="133.0" layoutY="34.0" prefHeight="200.0" prefWidth="334.0">
+        <columns>
+          <TableColumn fx:id="idCol" prefWidth="75.0" text="ID Pacjenta" />
+          <TableColumn fx:id="surnameCol" prefWidth="75.0" text="Nazwisko" />
+            <TableColumn fx:id="nameCol" prefWidth="75.0" text="Imie" />
+            <TableColumn fx:id="bdayCol" prefWidth="107.199951171875" text="Data urodzenia" />
+        </columns>
+      </TableView>
+      <Button fx:id="search" layoutX="79.0" layoutY="350.0" mnemonicParsing="false" onAction="#searchClick" prefHeight="37.0" prefWidth="73.0" text="Szukaj" />
+      <Button fx:id="newVisit" layoutX="307.0" layoutY="350.0" mnemonicParsing="false" onAction="#newVisitClick" prefHeight="38.0" prefWidth="98.0" text="Nowa wizyta" />
+      <Label layoutX="21.0" layoutY="286.0" text="Nazwisko" />
+      <TextField fx:id="surname" layoutX="79.0" layoutY="282.0" />
+      <Label layoutX="34.0" layoutY="322.0" text="Imie" />
+      <TextField fx:id="name" layoutX="79.0" layoutY="318.0" />
+      <TextField fx:id="id" layoutX="79.0" layoutY="244.0" prefHeight="26.0" prefWidth="50.0" />
+      <Text layoutX="40.0" layoutY="262.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID" />
+      <Button fx:id="edit" layoutX="217.0" layoutY="350.0" mnemonicParsing="false" onAction="#editClick" prefHeight="38.0" prefWidth="82.0" text="Edytuj dane" />
+      <Button fx:id="deleteVisit" layoutX="412.0" layoutY="349.0" mnemonicParsing="false" onAction="#deleteVisitClick" prefHeight="38.0" prefWidth="82.0" text="Usun wizyte" />
+      <Button fx:id="newPrescription" layoutX="501.0" layoutY="350.0" mnemonicParsing="false" onAction="#newPrescriptionClick" prefHeight="38.0" prefWidth="90.0" text="Nowa recepta" />
+   </children>
+</AnchorPane>

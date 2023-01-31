@@ -54,14 +54,35 @@ public class VisitController {
             System.out.println("comming");
             DBAPI dbapi = new DBAPI();
             List<Visits> list;
-            list = dbapi.getVisitsComing(dane.idUser);
-            System.out.println(list.toString());
+            if(dane.typ == 1){
+                list = dbapi.getVisitsComing(dane.idUser);
+                list2.clear();
+                list2.addAll(list);
+                tableVisit.setItems(list2);
+            }
+            else{
+                list = dbapi.getVisitsComingDoc(dane.idUser);
+                list2.clear();
+                list2.addAll(list);
+                tableVisit.setItems(list2);
+            }
 
         } else if (statusVisit.getValue().equals("ended")) {
             System.out.println("ended");
             DBAPI dbapi = new DBAPI();
             List<Visits> list;
-            list = dbapi.getVisitsEnded(dane.idUser);
+            if(dane.typ == 1){
+                list = dbapi.getVisitsEnded(dane.idUser);
+                list2.clear();
+                list2.addAll(list);
+                tableVisit.setItems(list2);
+            }
+            else{
+                list = dbapi.getVisitsEndedDoc(dane.idUser);
+                list2.clear();
+                list2.addAll(list);
+                tableVisit.setItems(list2);
+            }
             System.out.println(list.toString());
 
         }
@@ -95,9 +116,7 @@ public class VisitController {
         officeVisitCol.setCellValueFactory(new PropertyValueFactory<Visits, Integer>("officeNumber"));
         statusVisit.getItems().addAll("coming", "ended");
 
-
         tableVisit.setItems(list2);
-
-
     }
+
 }

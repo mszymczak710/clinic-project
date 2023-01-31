@@ -63,7 +63,7 @@ public class DeleteVisitController {
         System.out.println("Typ:");
         System.out.println(dane.typ);
 
-        listVisits = dbapi.getVisits();
+        listVisits = dbapi.getVisitsComing(dane.idPatientVisit);
         list3.addAll(listVisits);
         System.out.println(listVisits.toString());
         idVisitCol.setCellValueFactory(new PropertyValueFactory<Visits, Integer>("visitId"));

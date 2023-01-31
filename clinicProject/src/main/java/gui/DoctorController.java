@@ -54,19 +54,19 @@ public class DoctorController {
     @FXML
     void setDataVisit(ActionEvent event) {}
 
-    @FXML
-    void createVisitClick(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("new_visits.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        Stage stage = new Stage();
-        stage.setTitle("Nowa wizyta");
-        stage.initModality(Modality.WINDOW_MODAL);
-        stage.initOwner(createVisit.getScene().getWindow());
-        stage.setScene(scene);
-        stage.show();
-
-    }
+//    @FXML
+//    void createVisitClick(ActionEvent event) throws IOException {
+//        FXMLLoader fxmlLoader = new FXMLLoader();
+//        fxmlLoader.setLocation(getClass().getResource("new_visits.fxml"));
+//        Scene scene = new Scene(fxmlLoader.load());
+//        Stage stage = new Stage();
+//        stage.setTitle("Nowa wizyta");
+//        stage.initModality(Modality.WINDOW_MODAL);
+//        stage.initOwner(createVisit.getScene().getWindow());
+//        stage.setScene(scene);
+//        stage.show();
+//
+//    }
 
 
 
@@ -95,7 +95,7 @@ public class DoctorController {
 
         stage.setTitle("Nowy pacjent");
         stage.initModality(Modality.WINDOW_MODAL);
-        stage.initOwner(createVisit.getScene().getWindow());
+        stage.initOwner(patientRegistration.getScene().getWindow());
         stage.setScene(scene);
         stage.show();
 
@@ -133,37 +133,23 @@ public class DoctorController {
     private Button editPatient;
 
     @FXML
-    private Button editVisit;
+    private Button deleteVisit;
 
-    @FXML
-    void editPatientClick(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("edit_patient.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        Stage stage = new Stage();
 
-        stage.setTitle("Edycja pacjenta");
-        stage.initModality(Modality.WINDOW_MODAL);
-        stage.initOwner(myVisits.getScene().getWindow());
-        stage.setScene(scene);
-        stage.show();
-
-    }
-
-    @FXML
-    void editVisitClick(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("delete_visits.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        Stage stage = new Stage();
-
-        stage.setTitle("Edycja wizyty");
-        stage.initModality(Modality.WINDOW_MODAL);
-        stage.initOwner(myVisits.getScene().getWindow());
-        stage.setScene(scene);
-        stage.show();
-
-    }
+//    @FXML
+//    void deleteVisitClick(ActionEvent event) throws IOException {
+//        FXMLLoader fxmlLoader = new FXMLLoader();
+//        fxmlLoader.setLocation(getClass().getResource("delete_visits.fxml"));
+//        Scene scene = new Scene(fxmlLoader.load());
+//        Stage stage = new Stage();
+//
+//        stage.setTitle("Edycja wizyty");
+//        stage.initModality(Modality.WINDOW_MODAL);
+//        stage.initOwner(myVisits.getScene().getWindow());
+//        stage.setScene(scene);
+//        stage.show();
+//
+//    }
 
     @FXML
     void addPatientClick(ActionEvent event) {
@@ -185,19 +171,68 @@ public class DoctorController {
 
             DBAPI dbapi = new DBAPI();
             dbapi.insertPatient(patient);
-
-
-
-
+            clear_values();
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setContentText("Dodano nowego pacjenta");
+            alert.show();
         }
         else{
             System.out.println("Wypelnij wszystkie pola");
         }
 
     }
+    void clear_values(){
+        namePatient.clear();
+        surnamePatient.clear();
+        pesel.clear();
+        bday.setValue(null);
+        phoneNumber.clear();
+        address.clear();
+        city.clear();
+        zipcode.clear();
+        email.clear();
+        password.clear();
 
+    }
     @FXML
     void clearDataClick(ActionEvent event) {
+        clear_values();
+
+    }
+
+    @FXML
+    private Button raports;
+
+    @FXML
+    private Button listOfPatient;
+
+    @FXML
+    void raportsClick(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("raports.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage stage = new Stage();
+
+        stage.setTitle("Lista pacjentow");
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initOwner(raports.getScene().getWindow());
+        stage.setScene(scene);
+        stage.show();
+
+    }
+
+    @FXML
+    void listOfPatientClick(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("listPatients.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage stage = new Stage();
+
+        stage.setTitle("Lista pacjentow");
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initOwner(myVisits.getScene().getWindow());
+        stage.setScene(scene);
+        stage.show();
 
     }
 
@@ -223,10 +258,10 @@ public class DoctorController {
     private TableColumn<Visits, Integer> officeVisitCol;
 
 
-    @FXML
-    void searchVisitClick(ActionEvent event) {
-
-    }
+//    @FXML
+//    void searchVisitClick(ActionEvent event) {
+//
+//    }
 
     @FXML
     private TextField comment;
@@ -240,29 +275,20 @@ public class DoctorController {
     @FXML
     private TextField pieces;
 
-    @FXML
-    void onCreatePrescriptionClick(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("new_prescription.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        Stage stage = new Stage();
-
-        stage.setTitle("Edycja wizyty");
-        stage.initModality(Modality.WINDOW_MODAL);
-        stage.initOwner(myVisits.getScene().getWindow());
-        stage.setScene(scene);
-        stage.show();
-
-    }
-
-    @FXML
-    private ComboBox<?> listOfPatient;
-
-    @FXML
-    private Spinner<?> minInput;
-
-    @FXML
-    private ComboBox<?> room;
+//    @FXML
+//    void onCreatePrescriptionClick(ActionEvent event) throws IOException {
+//        FXMLLoader fxmlLoader = new FXMLLoader();
+//        fxmlLoader.setLocation(getClass().getResource("new_prescription.fxml"));
+//        Scene scene = new Scene(fxmlLoader.load());
+//        Stage stage = new Stage();
+//
+//        stage.setTitle("Edycja wizyty");
+//        stage.initModality(Modality.WINDOW_MODAL);
+//        stage.initOwner(myVisits.getScene().getWindow());
+//        stage.setScene(scene);
+//        stage.show();
+//
+//    }
 
     @FXML
     private TextField zipcode;

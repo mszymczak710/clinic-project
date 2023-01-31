@@ -10,6 +10,7 @@ import jakarta.persistence.Persistence;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.List;
 // serwer wykonuje operacje na bazie, przygotowuje string do zwrocenia klientowi
 public class DBAPI { /*tutaj beda polaczenie z hibernate*/
@@ -81,6 +82,36 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
         entityTransaction.commit();
 
         return patientsList.get(0);
+    }
+
+    public List<Patients> getPatientsBySurname(String surname){
+        entityTransaction.begin();
+
+        List<Patients> patientsList = entityManager.createQuery("SELECT p from Patients p where p.lastName = ?1").setParameter(1,surname).getResultList();
+
+        entityTransaction.commit();
+
+        return patientsList;
+    }
+
+    public List<Patients> getPatientsByName(String name){
+        entityTransaction.begin();
+
+        List<Patients> patientsList = entityManager.createQuery("SELECT p from Patients p where p.firstName = ?1").setParameter(1,name).getResultList();
+
+        entityTransaction.commit();
+
+        return patientsList;
+    }
+
+    public List<Patients> getPatientsByNameSurname(String name, String surname){
+        entityTransaction.begin();
+
+        List<Patients> patientsList = entityManager.createQuery("SELECT p from Patients p where p.firstName = ?1 and p.lastName = ?2").setParameter(1,name).setParameter(2,surname).getResultList();
+
+        entityTransaction.commit();
+
+        return patientsList;
     }
 
     public List<Doctors> getDoctors()  {
@@ -208,6 +239,30 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
 
         return visitsList;
     }
+
+    public static Timestamp addDays(Timestamp date, int days) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);// w ww.  j ava  2  s  .co m
+        cal.add(Calendar.DATE, days); //minus number would decrement the days
+        return new Timestamp(cal.getTime().getTime());
+
+    }
+
+    public List<Visits> getVisitsBYdocIDDay (int id, java.sql.Timestamp day)
+    {
+        entityTransaction.begin();
+        Timestamp tmp = addDays(day, 1);
+        System.out.println("TIME");
+        System.out.println(tmp);
+        List<Visits> visitsList = entityManager.createQuery("SELECT vis from Visits vis WHERE vis.doctorId = ?1 and vis.dateOfVisit > ?2 and vis.dateOfVisit < ?3").setParameter(1,id).setParameter(2, day).setParameter(3, tmp).getResultList();
+        entityTransaction.commit();
+
+        System.out.println(visitsList.size());
+
+        System.out.println("Hello");
+        System.out.println(visitsList.toString());
+        return visitsList;
+    }
     public List<Visits> getVisitsBYpatID (int id)
     {
         entityTransaction.begin();
@@ -236,6 +291,30 @@ public class DBAPI { /*tutaj beda polaczenie z hibernate*/
         entityTransaction.begin();
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         List<Visits> visitsList = entityManager.createQuery("SELECT vis from Visits vis WHERE vis.dateOfVisit >= ?1 and vis.patientId = ?2").setParameter(1,timestamp).setParameter(2,id).getResultList();
+        entityTransaction.commit();
+
+        System.out.println(visitsList.size());
+
+        return visitsList;
+    }
+
+    public List<Visits> getVisitsEndedDoc(int id)
+    {
+        entityTransaction.begin();
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        List<Visits> visitsList = entityManager.createQuery("SELECT vis from Visits vis WHERE vis.dateOfVisit < ?1 and vis.doctorId = ?2").setParameter(1,timestamp).setParameter(2, id ).getResultList();
+        entityTransaction.commit();
+
+        System.out.println(visitsList.size());
+
+        return visitsList;
+    }
+
+    public List<Visits> getVisitsComingDoc(int id)
+    {
+        entityTransaction.begin();
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        List<Visits> visitsList = entityManager.createQuery("SELECT vis from Visits vis WHERE vis.dateOfVisit >= ?1 and vis.doctorId = ?2").setParameter(1,timestamp).setParameter(2,id).getResultList();
         entityTransaction.commit();
 
         System.out.println(visitsList.size());

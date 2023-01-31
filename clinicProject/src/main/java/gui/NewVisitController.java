@@ -44,8 +44,9 @@ public class NewVisitController implements Initializable {
 
     @FXML
     private ComboBox<Integer> office;
+
     @FXML
-    private ComboBox<Integer> idPatient;
+    private Label name_surname_patient;
 
     @FXML
     void addVisitClick(ActionEvent event) {
@@ -57,7 +58,7 @@ public class NewVisitController implements Initializable {
             output += ((hourInput.getValue() < 10) ? "0" + hourInput.getValue() : hourInput.getValue()) + ":" + ((minInput.getValue() < 10) ? "0" + minInput.getValue() : minInput.getValue());
             output += ":00";
             visit.setDateOfVisit(Timestamp.valueOf(output));
-            visit.setPatientId(idPatient.getValue());
+            visit.setPatientId(dane.idPatientVisit);
             visit.setDurationInMinutes(durationTime.getValue());
             visit.setOfficeNumber(office.getValue());
             visit.setDoctorId(dane.idUser);
@@ -75,6 +76,14 @@ public class NewVisitController implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        int id = dane.idPatientVisit;
+        Patients patient;
+        DBAPI dbapi = new DBAPI();
+        patient = dbapi.getPatientsByID(id);
+
+
+        name_surname_patient.setText(patient.getFirstName() + ' ' + patient.getLastName());
+
         SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,23);
         SpinnerValueFactory<Integer> valueFactoryMin = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,59);
         valueFactory.setValue(0);
@@ -96,7 +105,6 @@ public class NewVisitController implements Initializable {
         minInput.setValueFactory(valueFactoryMin);
         durationTime.setValueFactory(valueFactory1);
 
-        DBAPI dbapi = new DBAPI();
         List<Offices> offices;
         offices = dbapi.getOffices();
         ObservableList<Offices> list = FXCollections.observableArrayList(offices);
@@ -105,19 +113,6 @@ public class NewVisitController implements Initializable {
             office.getItems().add(list.get(i).getOfficeNumber());
         }
 
-        DBAPI dbapi1 = new DBAPI();
-        List<Patients> patients;
-        patients = dbapi1.getPatients();
-        ObservableList<Patients> list1 = FXCollections.observableArrayList(patients);
-
-        for(int i = 0; i < list1.size(); i++){
-            idPatient.getItems().add(list1.get(i).getPatientId());
-        }
-
-
-
-
-        System.out.println(patients);
 
     }
     @FXML
@@ -127,17 +122,7 @@ public class NewVisitController implements Initializable {
 
     }
 
-    @FXML
-    void setListPatients(ActionEvent event) {
 
-    }
-
-    @FXML
-    void setListOffice(ActionEvent event) {
-
-
-
-    }
 
     @FXML
     void setDataVisit(ActionEvent event) {

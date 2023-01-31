@@ -11,18 +11,17 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.NewVisitController">
    <children>
-      <ComboBox fx:id="idPatient" layoutX="347.0" layoutY="90.0" onAction="#setListPatients" prefWidth="150.0" />
-      <Label layoutX="286.0" layoutY="93.0" prefHeight="18.0" prefWidth="46.0" text="Pacjent" />
+      <Label layoutX="286.0" layoutY="93.0" prefHeight="18.0" prefWidth="46.0" />
       <Label layoutX="191.0" layoutY="14.0" prefHeight="59.0" prefWidth="290.0" text="Nowa wizyta" textFill="#385481">
          <font>
             <Font size="41.0" />
          </font>
       </Label>
-      <DatePicker fx:id="dataVisit" layoutX="88.0" layoutY="89.0" onAction="#setDataVisit" />
-      <Label layoutX="39.0" layoutY="93.0" prefHeight="18.0" prefWidth="37.0" text="Data" />
+      <DatePicker fx:id="dataVisit" layoutX="88.0" layoutY="147.0" onAction="#setDataVisit" />
+      <Label layoutX="44.0" layoutY="150.0" prefHeight="18.0" prefWidth="37.0" text="Data" />
       <Button fx:id="addVisit" layoutX="256.0" layoutY="246.0" mnemonicParsing="false" onAction="#addVisitClick" text="Umow wizyte" />
       <Button fx:id="exitApp" layoutX="524.0" layoutY="19.0" mnemonicParsing="false" onAction="#onExitAppClick" text="Wyjscie" />
-      <HBox alignment="CENTER" layoutX="93.0" layoutY="134.0">
+      <HBox alignment="CENTER" layoutX="88.0" layoutY="187.0">
          <children>
             <Spinner fx:id="hourInput" editable="true" prefHeight="25.0" prefWidth="72.0" />
             <Label text="h" />
@@ -30,10 +29,20 @@
             <Label text="m" />
          </children>
       </HBox>
-      <Label layoutX="44.0" layoutY="139.0" text="Time" />
-      <Label layoutX="288.0" layoutY="139.0" text="Gabinet" />
-      <Label layoutX="11.0" layoutY="182.0" text="Czas trwania" />
-      <ComboBox fx:id="office" layoutX="347.0" layoutY="134.0" onAction="#setListOffice" prefHeight="26.0" prefWidth="66.0" />
-      <Spinner fx:id="durationTime" layoutX="88.0" layoutY="178.0" />
+      <Label layoutX="44.0" layoutY="191.0" text="Time" />
+      <Label layoutX="300.0" layoutY="191.0" text="Gabinet" />
+      <Label layoutX="287.0" layoutY="151.0" text="Czas trwania" />
+      <ComboBox fx:id="office" layoutX="369.0" layoutY="187.0" prefHeight="26.0" prefWidth="66.0" />
+      <Spinner fx:id="durationTime" layoutX="360.0" layoutY="147.0" />
+      <Label layoutX="42.0" layoutY="93.0" prefHeight="36.0" prefWidth="56.0" text="Pacjent">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="name_surname_patient" layoutX="104.0" layoutY="92.0" prefHeight="36.0" prefWidth="360.0">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

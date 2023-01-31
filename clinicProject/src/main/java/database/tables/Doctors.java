@@ -120,17 +120,6 @@ public class Doctors {
         this.jobExecutionNumber = (int) jsonObject.get("job_execution_number");
         this.specialization = (String) jsonObject.get("specialization");
     }
-    public JSONObject toJSON ()
-    {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("doctor_id",doctorId);
-        jsonObject.put("first_name",firstName);
-        jsonObject.put("last_name",lastName);
-        jsonObject.put("job_execution_number",jobExecutionNumber);
-        jsonObject.put("specialization",specialization);
-        return jsonObject;
-
-    }
 
     public Collection<Visits> getVisitsByDoctorId() {
         return visitsByDoctorId;
