@@ -1,4 +1,4 @@
-# Przychodnia---Projekt-Java
+# Clinic Project
 Projekt zaliczeniowy z przedmiotu Programowanie III (Java, C#)
 
 Projekt zaliczeniowy nosi nazwę "System zarządzania przychodnią lekarską".
